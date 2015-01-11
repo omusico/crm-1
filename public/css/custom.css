@@ -1,0 +1,12 @@
+.text-upper {
+	text-transform: uppercase;
+}
+.panel-heading {
+	text-transform: uppercase;
+}
+.i-checks input:checked + i {
+  border-color: #7266ba;
+}
+.i-checks input:checked + i:before {
+  background-color: #7266ba;
+}
