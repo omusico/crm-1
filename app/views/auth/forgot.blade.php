@@ -20,12 +20,12 @@
         </div>
       </div>
 
-      {{ Form::submit('Send new Pas', ['class' => 'btn btn-lg btn-primary btn-block']) }}      
+      {{ Form::submit('Reset Password', ['class' => 'btn btn-lg btn-danger btn-block']) }}      
 
       <div class="text-center m-t m-b">
       	<a href="{{ action('AuthController@signin') }}">Back to Sign In page</a>
       </div>
-      
+
     {{ Form::close() }}
 
   </div>

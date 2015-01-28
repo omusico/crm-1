@@ -104,7 +104,7 @@
                     data-method="put"
                     data-ajax
                     data-url="{{ url('clients/' . $client->id . '/activate') }}"
-                    class="bootbox-confirm btn btn-md btn-danger">
+                    class="bootbox-confirm btn btn-md btn-default">
                   Activate Client
                 </a>
               </li>
@@ -151,7 +151,7 @@
                   data-ajax
                   data-method="put"
                   data-url="{{ url('users/' . $user->id . '/unsuspend') }}"
-                  class="bootbox-confirm btn btn-sm btn-success">
+                  class="bootbox-confirm btn btn-sm btn-warning">
                 Unsupsend User
               </a>
               <a  href="#"

@@ -156,7 +156,7 @@ class UsersController extends \BaseController {
 		{	
 			if($this->user->suspendUser($user_id))
 				$name = $this->user->getUserFullName($user_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account suspended');
+				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account suspended.');
 				return 'success';
 			return $this->unsuccessfulAjaxResponse;
 		}
@@ -175,7 +175,7 @@ class UsersController extends \BaseController {
 
 			if($this->user->unsuspendUser($user_id))
 				$name = $this->user->getUserFullName($user_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account unsuspended');
+				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account unsuspended.');
 				return 'success';
 			return $this->getUnsuccessfulAjaxResponse;
 		}
@@ -193,7 +193,7 @@ class UsersController extends \BaseController {
 		{	
 			if($this->user->deactivateUser($user_id))
 				$name = $this->user->getUserFullName($user_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account deactivated');
+				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account deactivated.');
 				return 'success';
 			return $this->getUnsuccessfulAjaxResponse;
 		}
@@ -211,7 +211,7 @@ class UsersController extends \BaseController {
 		{	
 			if($this->user->activateUser($user_id))
 				$name = $this->user->getUserFullName($user_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account activated');
+				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account activated.');
 				return 'success';
 			return $this->getUnsuccessfulAjaxResponse;
 		}
