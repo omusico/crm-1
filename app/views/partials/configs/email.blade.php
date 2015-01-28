@@ -2,7 +2,7 @@
 <div class="row">
 {{ Form::open(['action' => 'ConfigurationsController@emailUpdate', 'method' => 'PUT']) }}
 	<div class="col-sm-6">
-    <h3>Outgoing Email Configurations</h3>
+    <h3>Outgoing Email Configurations (Mailgun Config)</h3>
 		<div class="form-group">
     	<label for="client">Default Email Name <span class="text-danger">*</span></label>
     	<a data-toggle="tooltip" data-placement="top" title='{{ $defaultEmailNameDesc }}'>
