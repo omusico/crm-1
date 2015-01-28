@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
+		$this->call('ConfigsTableSeeder');
 		$this->call('PermissionsTableSeeder');
 		$this->call('IndustryTableSeeder');
 		$this->call('ClientStatusTableSeeder');
@@ -20,7 +21,37 @@ class DatabaseSeeder extends Seeder {
 		$this->call('DomainStatusTableSeeder');
 		$this->call('DomainsTableSeeder');
 	}
+}
 
+class ConfigsTableSeeder extends Seeder {
+
+    public function run() {
+
+    	$now = date('Y-m-d H:i:s');
+
+        // Create permisisons
+		$configs = [
+			[	
+	        	'variable' 		=> 	'default_email_name',
+	            'value' 		=>	'Up and Above',
+	            'description'	=>  'This is the default name that will appear in the recipients inbox list.',
+	            'created_at'	=> 	$now,            
+	            'updated_at'	=> 	$now
+	        ],
+	        [	
+	        	'variable' 		=> 	'default_email_address',
+	            'value' 		=>	'hello@upandabove.com.au',
+	            'description'	=>  'This is the default &quot;from&quot; email address automatically assigned to all outgoing emails when sending from the CRM.',
+	            'created_at'	=> 	$now,            
+	            'updated_at'	=> 	$now
+	        ]
+	    ];
+
+	    // Insert group date
+		foreach($configs as $config){
+			DB::table('configurations')->insert($config);
+		}
+	}
 }
 
 class PermissionsTableSeeder extends Seeder {
@@ -83,6 +114,7 @@ class IndustryTableSeeder extends Seeder {
 
         // Create industries
 		$industries = [			
+			[ 'industry' => '-', 'created_at' => $now, 'updated_at' => $now ],
           	[ 'industry' => 'Accounting', 'created_at' => $now, 'updated_at' => $now ],
           	[ 'industry' => 'Administration &amp; Office Support', 'created_at' => $now, 'updated_at' => $now ],
           	[ 'industry' => 'Advertising, Arts &amp; Media', 'created_at' => $now, 'updated_at' => $now ],
@@ -227,7 +259,7 @@ class UsersTableSeeder extends Seeder {
 	            'first_name'		=> 	'Nick',
 	            'last_name'			=> 	'Law',
 	            'business_title'	=>	'Founding Partner',
-	            'email' 			=>	'nick_law@tpg.com.au',
+	            'email' 			=>	'nick@upandabove.com.au',
 	            'password'			=> 	Hash::make('nl511988'),
 				'primary_phone'	  	=>  '0423640190',
 				'ip_address'		=> 	Request::getClientIp(),

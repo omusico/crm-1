@@ -32,7 +32,7 @@
         </label>
       </div>
 
-      {{ Form::submit('Login', ['class' => 'btn btn-lg btn-primary btn-block']) }}      
+      {{ Form::submit('Login', ['class' => 'btn btn-lg btn-danger btn-block']) }}      
 
       <div class="text-center m-t m-b">
       	<a href="{{ action('AuthController@forgot') }}">Forgot password?</a>

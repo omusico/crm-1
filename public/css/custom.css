@@ -1,3 +1,7 @@
+.p-0 { padding: 0; }
+.p-15 { padding: 15px; }
+.m-0 { margin: 0; }
+.ta-center { text-align: center; }
 .text-upper {
 	text-transform: uppercase;
 }
@@ -5,8 +9,22 @@
 	text-transform: uppercase;
 }
 .i-checks input:checked + i {
-  border-color: #7266ba;
+  border-color: #f05050;
 }
 .i-checks input:checked + i:before {
-  background-color: #7266ba;
+  background-color: #f05050;
+}
+
+.client-btns {
+	padding: 15px 15px 15px 0;
+}
+.client-btns > ul {
+	padding: 0;
+	margin: 0;
+}
+.client-btns > ul >li {
+	display: inline-block;
+}
+.external-link {
+	color: #19A9D5;
 }

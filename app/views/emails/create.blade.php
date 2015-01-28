@@ -32,11 +32,10 @@
 		        	{{ Form::select('to[]', 
 		        			[
 								'nick_law@tpg.com.au' => 'Nicholas Law <nick_law@tpg.com.au>',
-								'bob@bobsbackyardbeetroot.com' => 'Bob Butcher <bob@bobsbackyardbeetroot.com>',
-								'john@doe.comjohn@doe.com' => 'John Doe <john@doe.com>',
-								'jane@doe.com' => 'Jane Doe <jane@doe.com>'
+								'n.law@thelobbi.com' => 'Nicholas Law <n.law@thelobbi.com>',
+								'nick@upandabove.com.au' => 'Nicholas Law <nick@upandabove.com.au>'
 		        			],
-		        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'multiple', 'required']) }}
+		        			$to, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'multiple', 'required']) }}
               	</div>
             	
             	<div class="row">
@@ -46,11 +45,10 @@
 				        	{{ Form::select('cc[]', 
 				        			[
 										'nick_law@tpg.com.au' => 'Nicholas Law <nick_law@tpg.com.au>',
-										'bob@bobsbackyardbeetroot.com' => 'Bob Butcher <bob@bobsbackyardbeetroot.com>',
-										'john@doe.comjohn@doe.com' => 'John Doe <john@doe.com>',
-										'jane@doe.com' => 'Jane Doe <jane@doe.com>'
+										'n.law@thelobbi.com' => 'Nicholas Law <n.law@thelobbi.com>',
+										'nick@upandabove.com.au' => 'Nicholas Law <nick@upandabove.com.au>'
 				        			],
-				        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'multiple', 'required']) }}
+				        			$cc, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'multiple']) }}
 		              	</div>
 	              	</div>
 
@@ -60,18 +58,17 @@
 				        	{{ Form::select('bcc[]', 
 				        			[
 										'nick_law@tpg.com.au' => 'Nicholas Law <nick_law@tpg.com.au>',
-										'bob@bobsbackyardbeetroot.com' => 'Bob Butcher <bob@bobsbackyardbeetroot.com>',
-										'john@doe.comjohn@doe.com' => 'John Doe <john@doe.com>',
-										'jane@doe.com' => 'Jane Doe <jane@doe.com>'
+										'n.law@thelobbi.com' => 'Nicholas Law <n.law@thelobbi.com>',
+										'nick@upandabove.com.au' => 'Nicholas Law <nick@upandabove.com.au>'
 				        			],
-				        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'multiple', 'required']) }}
+				        			$bcc, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'multiple']) }}
 		              	</div>
 		            </div>
               	</div>
 
               	<div class="form-group">
 			        <label class="font-bold">Subject:</label>			        
-			        {{ Form::text('email_subject', null, ['class' => 'form-control']) }}
+			        {{ Form::text('subject', $subject, ['class' => 'form-control']) }}
 			    </div>
 
 			    <div class="form-group">
@@ -112,7 +109,7 @@
 		              <a class="btn btn-sm btn-default" data-edit="justifyfull" tooltip="Justify (Ctrl/Cmd+J)"><i class="fa text-base fa-align-justify"></i></a>
 		            </div>
 		          </div>
-		          <div ui-jq="wysiwyg" id="wysiwyg-editor" class="form-control h-auto" style="min-height:200px;"></div>
+		          <div name="content" ui-jq="wysiwyg" id="wysiwyg-editor" class="form-control h-auto" style="min-height:200px;">{{ $content }}</div>
 		        </div>
 		      </div>
 

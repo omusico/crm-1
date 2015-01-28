@@ -474,6 +474,14 @@
               </a>
             </li>
 
+            <!-- GLOBAL CONFIGS NAV -->
+            <li>
+              <a href="{{ action('ConfigurationsController@index') }}" class="auto">
+                <i class="fa fa-rss icon"></i>
+                <span class="font-bold">Global Configs</span>
+              </a>
+            </li>
+
             <!-- KNOWLEDGE BASE NAV -->
             <li>
               <a href="{{ action('KnowledgeBaseController@index') }}" class="auto">

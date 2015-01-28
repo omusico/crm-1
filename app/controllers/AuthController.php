@@ -90,7 +90,7 @@ class AuthController extends \BaseController {
 		$remember = (Input::get('remember') === null)? false :  true;
 
 		if(Auth::attempt(array('email' => Input::get('email'),'password'=> Input::get('password')), $remember))
-
+		{
 			//dd($this->status->userIsActive());
 			// check if account is active
 			if(!$this->status->userIsActive() || !$this->status->clientIsActive()) {
@@ -101,7 +101,8 @@ class AuthController extends \BaseController {
 
 			//dd('user status: ' . $this->status->getUserStatus() . ' Client Status: ' . $this->status->getClientStatus());
 
-			return Redirect::action('MainController@index');
+			return Redirect::action('MainController@index');	
+		}
 
 		Session::flash('error', 'Invalid email address or password.');
 		return Redirect::back()->withInput();

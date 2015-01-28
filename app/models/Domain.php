@@ -43,6 +43,6 @@ class Domain extends Eloquent {
 
 	public function getClientDomains($client_id) 
 	{
-		return DB::table('domains')->where('owned_by', '=', $client_id)->paginate(10);;
+		return DB::table($this->table)->where('owned_by', '=', $client_id)->paginate(10);
 	}
 }

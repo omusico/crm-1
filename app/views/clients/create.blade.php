@@ -24,48 +24,7 @@
 		          	<div class="form-group">
 			          	<div class="form-group">
 				          <label for="client">Industry</label> <span class="text-danger">*</span></label>
-				          <select name="industry" class="form-control m-b">
-					          	<option value=""> - </option>
-					          	<option value="1200">Accounting</option>
-					          	<option value="6251">Administration &amp; Office Support</option>
-					          	<option value="6304">Advertising, Arts &amp; Media</option>
-					          	<option value="1203">Banking &amp; Financial Services</option>
-					          	<option value="1204">Call Centre &amp; Customer Service</option>
-					          	<option value="7019">CEO &amp; General Management</option>
-					          	<option value="6163">Community Services &amp; Development</option>
-					          	<option value="1206">Construction</option>
-					          	<option value="6076">Consulting &amp; Strategy</option>
-					          	<option value="6263">Design &amp; Architecture</option>
-					          	<option value="6123">Education &amp; Training</option>
-					          	<option value="1209">Engineering</option>
-					          	<option value="6205">Farming, Animals &amp; Conservation</option>
-					          	<option value="1210">Government &amp; Defence</option>
-					          	<option value="1211">Healthcare &amp; Medical</option>
-					          	<option value="1212">Hospitality &amp; Tourism</option>
-					          	<option value="6317">Human Resources &amp; Recruitment</option>
-					          	<option value="6281">Information &amp; Communication Technology</option>
-					          	<option value="1214">Insurance &amp; Superannuation</option>
-					          	<option value="1216">Legal</option>
-					          	<option value="6092">Manufacturing, Transport &amp; Logistics</option>
-					          	<option value="6008">Marketing &amp; Communications</option>
-					          	<option value="6058">Mining, Resources &amp; Energy</option>
-					          	<option value="1220">Real Estate &amp; Property</option>
-					          	<option value="6043">Retail &amp; Consumer Products</option>
-					          	<option value="6362">Sales</option>
-					          	<option value="1223">Science &amp; Technology</option>
-					          	<option value="6261">Self Employment</option>
-					          	<option value="6246">Sport &amp; Recreation</option>
-					          	<option value="1225">Trades &amp; Services</option>
-					          	<option value="6565">Other</option>
-					        </select>
-				          <!-- {{ Form::select('size', array(
-				          							'' => ' - ',
-				          							'it' => 'Information & Communication Technology',
-				          							'accounting' => 'Accounting',
-				          							'construction' => 'Construction',
-				          							'design' => 'Design & Architecture',
-				          							'education' => 'Education & Training',
-				          							), '', ['class' => 'form-control m-b']) }} -->
+				          	{{ Form::select('size', $industries, '', ['class' => 'form-control m-b']) }}
 				        </div>
 			          	<!-- {{ Form::text('client_state', null, ['class' => 'form-control', 'placeholder' => 'eg. Victoria']) }} -->
 		          	</div>

@@ -61,5 +61,148 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return DB::table('users')->where('id', $user_id)->pluck('client_id');
 	}
 
+	
+	/**
+	* Returns the specified user's first name
+	*
+	* @param int $user_id
+	* @return string
+	*/
+	public function getUserFirstName($user_id)
+	{
+		$user = $this->find($user_id);
+		return $user->first_name;
+	}
+
+
+	/**
+	* Returns the specified user's last name
+	*
+	* @param int $user_id
+	* @return string
+	*/
+	public function getUserLastName($user_id)
+	{
+		$user = $this->find($user_id);
+		return $user->last_name;
+	}
+
+
+	/**
+	* Returns the specified user's full name
+	*
+	* @param int $user_id
+	* @return string
+	*/
+	public function getUserFullName($user_id)
+	{
+		return $this->getUserFirstName($user_id) . ' ' . $this->getUserLastName($user_id);
+	}
+
+	/**
+	* Returns the user's status id
+	* 
+	* @param int $user_id
+	* @return int
+	*/
+	public function getUserStatusId($user_id)
+	{
+		return DB::table($this->table)->where('id', '=', $user_id)->pluck('user_status');
+	}
+
+	/**
+	 * Return a single user's status
+	 *
+	 * @param  int  $status_id
+	 * @return string 
+	 */
+	public static function getUserStatus($status_id)
+	{
+		return DB::table('user_status')->where('id', '=', $status_id)->pluck('status');
+	}
+
+	
+	/**
+	 * Suspend a users account.
+	 *
+	 * @param  int  $user_id
+	 * @return bool 
+	 */
+	public function suspendUser($user_id)
+	{
+		if($this->getUserStatusId($user_id) === 1)
+		{
+			$this->where('id', '=', $user_id)->update(['user_status' => 2]);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Unsuspend a users account.
+	 *
+	 * @param  int  $user_id
+	 * @return bool 
+	 */
+	public function unsuspendUser($user_id)
+	{
+		if($this->getUserStatusId($user_id) === 2)
+		{
+			$this->where('id', '=', $user_id)->update(['user_status' => 1]);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Deactivate a users account.
+	 *
+	 * @param  int  $user_id
+	 * @return bool 
+	 */
+	public function deactivateUser($user_id)
+	{
+		if($this->getUserStatusId($user_id) === 2 || $this->getUserStatusId($user_id) === 1)
+		{
+			$this->where('id', '=', $user_id)->update(['user_status' => 3]);
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Activate a users account.
+	 *
+	 * @param  int  $user_id
+	 * @return bool 
+	 */
+	public function activateUser($user_id)
+	{
+		if($this->getUserStatusId($user_id) === 3)
+		{
+			$this->where('id', '=', $user_id)->update(['user_status' => 1]);
+			return true;
+		}
+
+		return false;
+	}
+
+	
+	/**
+	 * Activate a users account.
+	 *
+	 * @param  int  $user_id
+	 * @return bool 
+	 */
+	public function getUserEmailAddress($user_id)
+	{
+		$user = $this->find(intval($user_id));
+		return $user->email;
+	}	
 
 }

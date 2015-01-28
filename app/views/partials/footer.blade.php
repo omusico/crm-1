@@ -15,44 +15,50 @@
 
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.js') }}"></script>
+<script src="{{ asset('js/bootbox.min.js') }}"></script>
+<script src="{{ asset('js/bootbox-init.js') }}"></script>
+<script src="{{ asset('js/bootstrap-growl-v2.0.1.min.js') }}"></script>
 <script src="{{ asset('js/ui-load.js') }}"></script>
 <script src="{{ asset('js/ui-jp.config.js') }}"></script>
 <script src="{{ asset('js/ui-jp.js') }}"></script>
 <script src="{{ asset('js/ui-nav.js') }}"></script>
 <script src="{{ asset('js/ui-toggle.js') }}"></script>
-<script src="{{ asset('js/footable/footable.all.min.js') }}"></script>
+<!-- <script src="{{ asset('js/footable/footable.all.min.js') }}"></script> -->
 <script src="{{ asset('js/chosen/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('js/wysiwyg/bootstrap-wysiwyg.js') }}"></script>
 <script src="{{ asset('js/wysiwyg/jquery.hotkeys.js') }}"></script>
 <script src="{{ asset('js/onload.js') }}"></script>
 
-<script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script>
-<script>
-	$(document).ready(function(){
-		$('.disable-edit').click(function(evt) {
-			evt.preventDefault();
-			if (CKEDITOR.instances.editor1) {
-				$('#editor1').attr('contenteditable', 'false');
-				CKEDITOR.instances.editor1.destroy();
-				alert('Editor Disabled!');
-			}
-		});
-		$('.enable-edit').click(function(evt) {
-			evt.preventDefault();
-			if (!CKEDITOR.instances.editor1) {
-				$('#editor1').attr('contenteditable', 'true');
-			    CKEDITOR.inline( 'editor1' );
-			    alert('Editor Enabled!');
-			} else {
-				alert('You are already editing');
-			}
-		});
+<!-- NOTIFICATIONS -->
+@include('notifications.master')
 
-		$('.save-edit').click(function(evt) {
-			evt.preventDefault();
-		    alert('Changes Saved! (NOTE: This doesn\'t work just yet :P )');
-		});
-	});
+<!-- <script src="//cdn.ckeditor.com/4.4.6/full/ckeditor.js"></script> -->
+<script>
+	// $(document).ready(function(){
+	// 	$('.disable-edit').click(function(evt) {
+	// 		evt.preventDefault();
+	// 		if (CKEDITOR.instances.editor1) {
+	// 			$('#editor1').attr('contenteditable', 'false');
+	// 			CKEDITOR.instances.editor1.destroy();
+	// 			alert('Editor Disabled!');
+	// 		}
+	// 	});
+	// 	$('.enable-edit').click(function(evt) {
+	// 		evt.preventDefault();
+	// 		if (!CKEDITOR.instances.editor1) {
+	// 			$('#editor1').attr('contenteditable', 'true');
+	// 		    CKEDITOR.inline( 'editor1' );
+	// 		    alert('Editor Enabled!');
+	// 		} else {
+	// 			alert('You are already editing');
+	// 		}
+	// 	});
+
+	// 	$('.save-edit').click(function(evt) {
+	// 		evt.preventDefault();
+	// 	    alert('Changes Saved! (NOTE: This doesn\'t work just yet :P )');
+	// 	});
+	// });
 </script>
 </body>
 </html>

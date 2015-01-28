@@ -108,3 +108,36 @@ Route::filter('csrf', function()
 // 			return Redirect::action('MainController@index');
 // 		}
 // });
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Permission Filters
+|--------------------------------------------------------------------------
+|
+| The permission filter checks to see if the user and/or the client have
+| senior admin priveleges. Throw's 401 error ('Unauthorized') if not and
+| continues with the request otherwise.
+|
+*/
+
+Route::filter('permission', function()
+{	
+	//user not logged in
+	if(Auth::guest())
+		return Redirect::to('auth/signin');
+
+	//user is not an admin
+	if(Auth::user()->permission_id < 4)
+	{
+		if(Request::ajax())
+		{
+			return htmlentities('Unauthorized - You don\'t have permission to perform that action.');
+		}
+		else
+		{
+			return Response::make('Unauthorized', 401);	
+		}
+	}
+});

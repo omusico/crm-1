@@ -26,15 +26,24 @@ class DomainsController extends \BaseController {
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for registering a new domain.
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-		//
+		
 	}
 
+	/**
+	 * Show the form for transfering an existing domain.
+	 *
+	 * @return Response
+	 */
+	public function transfer()
+	{
+		
+	}	
 
 	/**
 	 * Store a newly created resource in storage.

@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
 /* AUTHENTICATION ROUTES */
 Route::get('auth/signin', 'AuthController@signin');
 // Route::get('auth/signup', 'AuthController@signup');
@@ -38,6 +27,22 @@ Route::group(array('before' => ['auth', 'status']), function() {
 
 	/* DOMAIN ROUTES */
 	Route::get('domains/dns', 'DomainsController@dns');
+	Route::get('domains/transfer', 'DomainsController@transfer');
+
+	/* CONFIGURATION ROUTES  */
+	Route::post('configurations/emailUpdate', 'ConfigurationsController@emailUpdate');
+
+	/* USER ROUTES */
+	Route::put('users/{user_id}/suspend', 'UsersController@suspend');
+	Route::put('users/{user_id}/unsuspend', 'UsersController@unsuspend');
+	Route::put('users/{user_id}/deactivate', 'UsersController@deactivate');
+	Route::put('users/{user_id}/activate', 'UsersController@activate');
+
+	/* CLIENT ROUTES */
+	Route::put('clients/{user_id}/suspend', 'ClientsController@suspend');
+	Route::put('clients/{user_id}/unsuspend', 'ClientsController@unsuspend');
+	Route::put('clients/{user_id}/deactivate', 'ClientsController@deactivate');
+	Route::put('clients/{user_id}/activate', 'ClientsController@activate');
 
 	/* ROUTE RESOURCES */
 	Route::resource('projects', 'ProjectsController');
@@ -53,5 +58,6 @@ Route::group(array('before' => ['auth', 'status']), function() {
 	Route::resource('contacts', 'ContactsController');
 	Route::resource('support', 'SupportController');
 	Route::resource('emails', 'EmailsController');
-	
+	Route::resource('invoices', 'InvoicesController');
+	Route::resource('configurations', 'ConfigurationsController');
 });

@@ -54,10 +54,14 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'homestead',
-			'username'  => 'forge', //'homestead',
-			'password'  => 'YSbYA7kc28Vlm1WDekWL',
+			'host'      => '12.0.0.1',					// Local host
+			'database'  => 'homstead',					// Local database
+			'username'  => 'homestead', 				// Local username
+			'password'  => 'secret', 					// Local password',
+			// 'host'      => 'localhost',				// Production host
+			// 'database'  => 'homestead',				// Production database
+			// 'username'  => 'forge', 					// Production username
+			// 'password'  => 'YSbYA7kc28Vlm1WDekWL', 	// Production password
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
@@ -83,7 +87,7 @@ return array(
 			'prefix'   => '',
 		),
 
-	),
+	), 
 
 	/*
 	|--------------------------------------------------------------------------
