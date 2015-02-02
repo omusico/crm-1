@@ -1,6 +1,5 @@
 @extends('templates.main-template')
 @section('content')
-
 <div class="wrapper-md">
   <div class="panel panel-default">
     <div class="panel-heading font-bold">
@@ -17,13 +16,13 @@
                   Client
               </th>
               <th>
-                  Website
+                  Primary Contact
               </th>
               <th data-hide="phone,tablet">
-                  Contact Email
+                  Primary Email
               </th>
               <th data-hide="phone,tablet">
-                  Industry
+                  Primary Phone
               </th>
               <th data-hide="phone,tablet" class="footable-sorted">
                   Client Since
@@ -34,24 +33,6 @@
           </tr>
         </thead>
         <tbody>
-        @foreach($clients->getCollection() as $client)
-          <tr>
-              <td><a href="{{ url('clients/'.$client->id) }}">{{ $client->business_name }}</a></td>
-              <td><a class="external-link" target="_blank" href="{{ 'http://' . $client->website }}">{{ $client->website }} <i class="fa fa-external-link"></i></a></td>
-              <td>{{ $client->email }}</td>
-              <td>{{ DB::table('industry')->where('id', '=', $client->industry_id)->pluck('industry') }}</td>
-              <td data-value="{{ DateClass::dateToUnixTimestamp($client->created_at) }}">{{ DateClass::formatDate($client->created_at, 'jS M Y') }}</td>
-              <td data-value="{{ $client->client_status }}">
-                @if(Client::getClientStatus($client->client_status) === 'Active')
-                  <span class="label bg-success">{{ Client::getClientStatus($client->client_status) }}</span>
-                @elseif(Client::getClientStatus($client->client_status) === 'Suspended')
-                  <span class="label bg-warning">{{ Client::getClientStatus($client->client_status) }}</span>
-                @else
-                  <span class="label bg-danger">{{ Client::getClientStatus($client->client_status) }}</span>
-                @endif
-              </td>
-          </tr>
-        @endforeach
         </tbody>
         <tfoot class="hide-if-no-paging">
           <tr>
@@ -61,10 +42,14 @@
           </tr>
         </tfoot>
       </table>
-      <div class="col-lg-12 pull-right">
-        {{ $clients->links() }}
-      </div>
     </div>
   </div>
 </div>
+<script>
+    window.onload = function() {
+      (function(){
+        onloadAjax('clients', 'get', 'tbody');
+      })();
+    };
+</script>
 @stop

@@ -1,6 +1,6 @@
 <div class="wrapper-sm">   
   <div class="row m-0 p-0">
-    <div class="col-md-6">
+    <div class="col-md-6 pl-0">
       <h3>Client Profile</h3>
 
       <table class="table table-bordered table-hover bg-white-only">
@@ -18,7 +18,11 @@
         </tr>
         <tr>
           <td class="v-middle font-bold">Website:</td>
-          <td class="v-middle"><a class="external-link" target="_blank" href="{{ 'http://' . $client->website }}">{{ $client->website }} <i class="fa fa-external-link"></i></a></td>
+          <td class="v-middle">{{ $client->website }}&nbsp;&nbsp;&nbsp;
+            <a data-toggle="tooltip" data-placement="top" data-original-title="Open Website" class="external-link" target="_blank" href="{{ 'http://' . $client->website }}">
+              <i class="fa fa-external-link"></i>
+            </a>
+          </td>
         </tr>
         <tr>
           <td class="v-middle font-bold">Industry:</td>
@@ -26,7 +30,11 @@
         </tr>
         <tr>
           <td class="v-middle font-bold">Billing Email:</td>
-          <td class="v-middle"><a class="external-link" href="{{ url('emails/create?to=' . $client->id) }}">{{ $client->email }} <i class="fa fa-envelope"></i></a></td>
+          <td class="v-middle">{{ $client->email }}&nbsp;&nbsp;&nbsp;
+            <a data-toggle="tooltip" data-placement="top" data-original-title="Send New Email" class="external-link" href="{{ url('emails/create?to=' . $client->id) }}">
+              <i class="fa fa-envelope"></i>
+            </a>
+          </td>
         </tr>
         <tr>
           <td class="v-middle font-bold">Phone:</td>
@@ -113,10 +121,10 @@
           </ul>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 pl-0">
       <h3>Client Contacts</h3>
-      @if(count($clientUsers) < 1)
-        <p>This client has no users assigned.</p>
+      @if(count($clientContacts) < 1)
+        <p>This client has no contacts assigned.</p>
       @else
       <table class="table table-bordered table-hover bg-white-only">
         <tr style="font-weight: bold">
@@ -125,9 +133,9 @@
           <td class="ta-center" style="width:25%">Last Online</td>
           <td class="ta-center" style="width:30%">Actions</td>
         </tr>
-        @foreach($clientUsers as $user)
+        @foreach($clientContacts as $user)
         <tr>
-          <td class="v-middle"><a href="#">{{ $user->first_name . ' ' . $user->last_name }}</a></td>
+          <td class="v-middle"><a href="{{ url('users/' . $user->id . '/edit') }}">{{ $user->first_name . ' ' . $user->last_name }}</a></td>
           <td class="ta-center v-middle">{{ User::getUserStatus($user->user_status) }}</td>
           <td class="ta-center v-middle">{{ DateClass::formatDate($user->updated_at, 'jS M Y, g:ia') }}</td>
           <td class="ta-center v-middle" style="white-space: nowrap">
@@ -144,7 +152,6 @@
                 Supsend User
               </a>
               @elseif($user->user_status === 2)
-              <!-- 2 buntton: ususpend and deactivate -->
               <a  href="#"
                   data-title="User Unsuspension"
                   data-message="Are you sure you want to unsuspend this user?"
@@ -164,7 +171,6 @@
                 Deactivate User
               </a>
               @else
-              <!-- 1 button: activate -->
               <a  href="#"
                   data-title="User Activation"
                   data-message="Are you sure you want to activate this user?"

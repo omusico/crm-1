@@ -2,13 +2,22 @@
 
 class InvoicesController extends \BaseController {
 
+	protected $client;
+	protected $zoho;
+
+	public function __construct(Client $client, ZohoInvoicesApi $zoho)
+	{
+		$this->client = $client;
+		$this->zoho = $zoho;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
-	{
+	{	
 		//
 	}
 
@@ -20,7 +29,13 @@ class InvoicesController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('invoices.create',
+			[
+				'title' => 'New Invoice',
+				'pageHeader' => 'Create New Invoice',
+				'clients' => $this->returnModelList($this->client, 'business_name', 'id', 'business_name'),
+				'c' => (Input::has('c'))? intval(Input::get('c')) : null
+			]);
 	}
 
 
@@ -43,7 +58,7 @@ class InvoicesController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return View::make('invoices.show');
 	}
 
 

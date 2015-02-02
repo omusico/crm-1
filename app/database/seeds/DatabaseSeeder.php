@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UsersTableSeeder');
 		$this->call('DomainStatusTableSeeder');
 		$this->call('DomainsTableSeeder');
+		$this->call('InvoiceStatusTableSeeder');
 	}
 }
 
@@ -280,6 +281,7 @@ class UsersTableSeeder extends Seeder {
     }
 
 }
+
 class DomainStatusTableSeeder extends Seeder {
 
     public function run() {
@@ -304,6 +306,44 @@ class DomainsTableSeeder extends Seeder {
 		// Insert game date
 		foreach($arrayData as $array){
 			DB::table('domains')->insert($array);
+		}
+    }
+}
+
+class InvoiceStatusTableSeeder extends Seeder {
+
+    public function run() {
+
+    	$now = date('Y-m-d H:i:s');
+
+        // Create status'
+		$status = [
+			[	
+				'id' 			=> 	1,
+	        	'status' 		=> 	'Draft',
+	            'description' 	=>	'User has unrestricted access to their account.',
+	            'created_at'	=> 	$now,            
+	            'updated_at'	=> 	$now
+	        ],
+			[	
+				'id' 			=> 	2,
+	        	'status'	 	=> 	'Suspended',
+	            'description' 	=>	'Client or user has been suspended for billing discrepencies or some other noted reason.',
+	            'created_at'	=> 	$now,            
+	            'updated_at'	=> 	$now
+	        ],
+			[	
+				'id' 			=> 	3,
+				'status'	 	=> 	'Deactivated',
+	            'description' 	=> 	'A Client or Administrator have cancelled this account.',
+	            'created_at'	=> 	$now,            
+	            'updated_at'	=> 	$now
+	        ]
+		];
+
+		// Insert user_status data
+		foreach($status as $stat){
+			DB::table('invoice_status')->insert($stat);
 		}
     }
 }

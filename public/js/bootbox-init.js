@@ -37,7 +37,7 @@ $('.bootbox-confirm').click(function()
 	      label: $successLabel.toUpperCase(),
 	      className: $successClass,
 	      callback: function() {
-	      	if($ajax) {		
+	      	if($ajax) {
 	      		bootBoxAjax();
 	      	}
 	      	else {
@@ -57,16 +57,21 @@ $('.bootbox-confirm').click(function()
 })
 
 function bootBoxAjax()
-{	
+{
+	startHoldTight();
+
 	$.ajax({
 	    url: $url,
 	    type: $method,
 	    /*data: $dataArray,*/
 	    success:function(response){
-	    	if(response === "success") {
+	    	if(response === "success")
+	    	{
 	    		location.reload();
 	    	}
-	    	else {
+	    	else 
+	    	{
+	    		stopHoldTight();
 	    		bootBoxAlert(response);
 	    	}
 	    }
@@ -82,4 +87,49 @@ function bootBoxAjax()
 function bootBoxAlert(message)
 {
 	bootbox.alert(message, function() {});
+}
+
+/**
+ * 
+ * 
+ * 
+ */
+function startHoldTight() {
+	$('body').prepend('<div class="hold-tight-container"><h3 class="message">Hold tight...</h3></div><div class="hold-tight-overlay"></div>');
+	$("body").css("overflow-x", "auto");
+	$("body").css("overflow-y", "hidden");
+	
+	var opts = {
+	  lines: 13, // The number of lines to draw
+	  length: 7, // The length of each line
+	  width: 4, // The line thickness
+	  radius: 10, // The radius of the inner circle
+	  rotate: 0, // The rotation offset
+	  color: '#000', // #rgb or #rrggbb
+	  speed: 1, // Rounds per second
+	  trail: 60, // Afterglow percentage
+	  shadow: false, // Whether to render a shadow
+	  hwaccel: false, // Whether to use hardware acceleration
+	  className: 'spinner', // The CSS class to assign to the spinner
+	  zIndex: 2e9, // The z-index (defaults to 2000000000)
+	  top: '65px', // Top position relative to parent in px
+	  left: '75px' // Left position relative to parent in px
+	};
+	var spinner = new Spinner(opts).spin();
+	$(".hold-tight-container").append(spinner.el);
+}
+
+/**
+ * 
+ * 
+ * 
+ */
+function stopHoldTight() {
+	$('.hold-tight-container').remove();
+	$('.hold-tight-overlay').remove();
+	$("body").css("overflow-x", "auto");
+	$("body").css("overflow-y", "auto");
+
+	var spinner = new Spinner().spin();
+	spinner.stop();
 }

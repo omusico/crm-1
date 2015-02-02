@@ -9,18 +9,6 @@ class Client extends Eloquent {
 	 */
 	protected $table = 'clients';
 
-	public $rules = [
-		'' 			=> 'required',
-		'last_name' 			=> 'required',
-		'primary_phone' 		=> 'min: 10',
-		'secondary_phone' 		=> 'min:10',
-		'email' 				=> 'required|email|unique:users',
-		'password' 				=> 'required|min:6',
-		'password_confirm' 		=> 'same:password',
-		'client_id' 			=> 'required|exists:clients,id',
-		'permission_id' 		=> 'required|exists:permissions,id',
-	];
-
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -35,9 +23,56 @@ class Client extends Eloquent {
 	 */
 	protected $fillable = array();
 
-	public function createNewClient($input)
+	public function santizeInput($input)
 	{
+		$string = App::make('StringClass');
 
+		//build POST payload
+		$client = [
+			'contact_name' => $string->sanitizeString($input['name']),
+			'company_name' => $string->sanitizeString($input['name']),
+			'website' => $string->sanitizeString($input['website']),
+			'custom_fields' => [
+				[
+					'index' => 1,
+					'value'	=> $string->sanitizeString($input['industry'])
+				],
+				[
+					'index' => 2,
+					'value' => $string->sanitizeString($input['email'])
+				],
+				[
+					'index' => 3,
+					'value' => $string->sanitizeString($input['phone'])
+				],
+				[	
+					'index' => 4,
+					'value' => $string->sanitizeString($input['abn'])
+				],
+			],
+			'billing_address' => $billing_address = [
+				'address' 	=> $string->sanitizeString($input['address']),
+				'city' 		=> $string->sanitizeString($input['city']),
+				'state'		=> $string->sanitizeString($input['state']),
+				'zip' 		=> $string->sanitizeString($input['zip']),
+				'country'	=> $string->sanitizeString($input['country']),
+				'fax' 		=> '',
+			],
+			'shipping_address' => $billing_address,
+			'contact_persons' => [
+				[
+					'first_name' 	=> $string->sanitizeString($input['contact_first_name']),
+					'last_name'	 	=> $string->sanitizeString($input['contact_last_name']),
+					'email' 		=> $string->sanitizeString($input['contact_email']),
+					'phone' 		=> $string->sanitizeString($input['contact_secondary_phone']),
+					'mobile' 		=> $string->sanitizeString($input['contact_primary_phone']),
+					'is_primary_contact' => true,
+				]
+			],
+			'notes' => $input['notes']
+		];
+		
+		return $client;
 	}
 
 
@@ -76,11 +111,10 @@ class Client extends Eloquent {
 	* @param  string  $client_id
 	* @return array
 	*/
-	public function getClientUsers($client_id)
-	{
-		return $clients = DB::table('users')->where('client_id', '=', $client_id)->get();
+	public function getClientContacts($client_id)
+	{	
+		 return $clients = DB::table('users')->where('client_id', '=', $client_id)->get();	
 	}
-
 
 	/**
 	* Returns a specidied client's status.

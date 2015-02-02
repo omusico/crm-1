@@ -1,9 +1,5 @@
-  <div class="wrapper-md">
-    <div class="panel panel-default">
-      <div class="panel-heading font-bold">
-        Websites
-      </div>
-
+  <div class="wrapper-sm">    
+      <h3>Client Websites</h3>
       @if(count($clientProjects->getCollection()) > 0)
       <div class="panel-body b-b b-light">
         Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
@@ -55,7 +51,7 @@
           {{ $clientProjects->links() }}
         </div>
         @else
-            <h5 class="p-15 m-0">This client doesn't have any websites.</h5>
+            <p>This client doesn't have any websites.</p>
         @endif
         <div class="client-btns">
             <ul>
@@ -63,5 +59,4 @@
             </ul>
         </div>
       </div>
-    </div>
   </div>

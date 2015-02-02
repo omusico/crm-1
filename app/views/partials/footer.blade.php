@@ -23,11 +23,13 @@
 <script src="{{ asset('js/ui-jp.js') }}"></script>
 <script src="{{ asset('js/ui-nav.js') }}"></script>
 <script src="{{ asset('js/ui-toggle.js') }}"></script>
+<script src="{{ asset('js/spin.min.js') }}"></script>
 <!-- <script src="{{ asset('js/footable/footable.all.min.js') }}"></script> -->
 <script src="{{ asset('js/chosen/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('js/wysiwyg/bootstrap-wysiwyg.js') }}"></script>
 <script src="{{ asset('js/wysiwyg/jquery.hotkeys.js') }}"></script>
 <script src="{{ asset('js/onload.js') }}"></script>
+<script src="{{ asset('js/onloadAjax.js') }}"></script>
 
 <!-- NOTIFICATIONS -->
 @include('notifications.master')

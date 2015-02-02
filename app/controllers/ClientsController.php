@@ -5,13 +5,16 @@ class ClientsController extends \BaseController {
 	protected $client;
 	protected $domain;
 	protected $industry;
+	protected $rules;
 	protected $invoice;
 	protected $project;
 	protected $notification;
-	protected $unsuccessfulAjaxResponse;
+	protected $zohoApi;
+	protected $htmlBuilder;
 
-	public function __construct(Client $client, Domain $domain, Industry $industry,
-								Invoice $invoice, Project $project, Notification $notification)
+	public function __construct(Client $client, Domain $domain, Industry $industry, Rules $rules,
+								Invoice $invoice, Project $project, Notification $notification,
+								ZohoInvoicesApi $zohoApi, HtmlBuilder $htmlBuilder)
 	{
 		/* INSTANTIATE FILTERS */
 		$this->beforeFilter('csrf', ['on' => ['post'] ]);
@@ -23,10 +26,12 @@ class ClientsController extends \BaseController {
 		$this->client = $client;
 		$this->domain = $domain;
 		$this->industry = $industry;
+		$this->rules = $rules;
 		$this->invoice = $invoice;
 		$this->project = $project;
 		$this->notification = $notification;
-		$this->unsuccessfulAjaxResponse = ErrorClass::defaultAjaxErrorResponse();
+		$this->zohoApi = $zohoApi;
+		$this->htmlBuilder = $htmlBuilder;
 	}
 
 	/**
@@ -36,14 +41,28 @@ class ClientsController extends \BaseController {
 	 */
 	public function index()
 	{
+		if(Request::ajax())
+ 		{
+ 			$response = $this->zohoApi->getAllContacts();
+ 			if($response['message'] === 'success')
+ 			{
+ 				return $this->htmlBuilder->buildClientListingTableRows($response['contacts']);
+ 			}
+ 			else
+ 			{
+ 				return $response['message'];
+ 			}
+ 		}
+
 		return View::make('clients.index', 
 			[
 				'title' 		=> 'Clients',
 				'pageHeader' 	=> 'Clients',
-				'clients'		=>  $this->client->getClients()
+				//'clients'		=>  '' //$this->zohoApi->getAllContacts() //$this->client->getClients()
 			]);
 	}
 
+ 	
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -61,13 +80,30 @@ class ClientsController extends \BaseController {
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created clients.
 	 *
 	 * @return Response
 	 */
 	public function store()
 	{
-		
+		// validate input
+		$v = Validator::make($input = Input::all(), $this->rules->newClientRules);
+		if($v->fails())
+			return Redirect::back()->withInput()->withErrors($v);
+
+
+		$response = $this->zohoApi->createContact($this->client->santizeInput($input));
+
+		if($response['message'] === 'The contact has been added.')
+		{
+			$this->notification->newStandardNotification('success', '<b>'. $response['contact']['contact_name'] . '</b> has been added a client.');
+			return Redirect::action('ClientsController@index');
+		}
+		else
+		{
+			$error = str_replace('customer', 'client', $response['message']);
+			return Redirect::back()->withInput()->with('error', $error);
+		}
 	}
 
 
@@ -79,18 +115,23 @@ class ClientsController extends \BaseController {
 	 */
 	public function show($id)
 	{	
-		$client = $this->client->findOrFail($id);
+		$response = $this->zohoApi->getContact($id);
 
-		return View::make('clients.show',
+		if($response['message'] === 'success')
+		{
+			$client = $response['contact'];
+
+			return View::make('clients.show',
 			[
-				'title' => 'Client - ' . $client->business_name,
-				'pageHeader' => 'Client - ' . $client->business_name,
-				'client' => $client,
-				'clientUsers' => $this->client->getClientUsers($id),
-				'clientProjects' => $this->project->getClientProjects($id),
-				'clientDomains' => $this->domain->getClientDomains($id),
-				'clientInvoices' => $this->invoice->getClientInvoices($id),
-			]);
+				'title' => 'Client - ' . $client['contact_name'],
+				'pageHeader' => 'Client - ' . $client['contact_name'],
+				'client' => $client
+			]);	
+		}
+		else
+		{
+			return 'Error: ' . $response['message'];
+		}
 	}
 
 
@@ -131,60 +172,29 @@ class ClientsController extends \BaseController {
 
 
 	/**
-	 * Suspend given client account.
-	 * 
-	 * @param  int  $client_id
-	 * @return Response
-	 */
-	public function suspend($client_id)
-	{
-		if(Request::ajax())
-		{	
-			if($this->client->suspendClient($client_id))				
-				$name = $this->client->getClientBusinessName($client_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account suspended');
-				return 'success';
-			return $this->unsuccessfulAjaxResponse;
-		}
-	}
-
-
-	/**
-	 * Unsuspend given client account.
-	 * 
-	 * @param  int  $client_id
-	 * @return Response
-	 */
-	public function unsuspend($client_id)
-	{
-		if(Request::ajax())
-		{	
-
-			if($this->client->unsuspendClient($client_id))
-				$name = $this->client->getClientBusinessName($client_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account unsuspended');
-				return 'success';
-			return $this->getUnsuccessfulAjaxResponse;
-		}
-	}
-
-	/**
 	 * Deactivate given client account.
 	 * 
-	 * @param  int  $client_id
+	 * @param  string  $client_id
 	 * @return Response
 	 */
 	public function deactivate($client_id)
 	{
 		if(Request::ajax())
-		{	
-			if($this->client->deactivateClient($client_id))
-				$name = $this->client->getClientBusinessName($client_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account deactivated');
+		{
+			$response = $this->zohoApi->markContactAsInactive($client_id);
+
+			if($response['message'] === 'The contact has been marked as inactive.')
+			{
+				$this->notification->newStandardNotification('success', $response['message']);
 				return 'success';
-			return $this->getUnsuccessfulAjaxResponse;
+			}
+			else
+			{
+				return $response['message'];
+			}
 		}
 	}
+
 
 	/**
 	 * Activate given client account.
@@ -195,12 +205,20 @@ class ClientsController extends \BaseController {
 	public function activate($client_id)
 	{
 		if(Request::ajax())
-		{	
-			if($this->client->activateClient($client_id))
-				$name = $this->client->getClientBusinessName($client_id);
-				$this->notification->newStandardNotification('success', '<b>'. $name . '</b> has had their account activated');
+		{
+			$response = $this->zohoApi->markContactAsActive($client_id);
+
+			if($response['message'] === 'The contact has been marked as active.')
+			{
+				$this->notification->newStandardNotification('success', $response['message']);
 				return 'success';
-			return $this->getUnsuccessfulAjaxResponse;
-		}
+			}
+			else
+			{
+				return $response['message'];
+			}
+		}	
 	}
+
+
 }

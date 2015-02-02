@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AuthController' => $baseDir . '/app/controllers/AuthController.php',
+    'BaseApi' => $baseDir . '/app/libraries/BaseApi.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Client' => $baseDir . '/app/models/Client.php',
     'ClientStatusTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
@@ -26,14 +27,17 @@ return array(
     'DomainsTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'EmailsController' => $baseDir . '/app/controllers/EmailsController.php',
     'ErrorClass' => $baseDir . '/app/libraries/ErrorClass.php',
+    'HtmlBuilder' => $baseDir . '/app/libraries/HtmlBuilder.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'Industry' => $baseDir . '/app/models/Industry.php',
     'IndustryTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'Invoice' => $baseDir . '/app/models/Invoice.php',
+    'InvoiceStatusTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'InvoicesController' => $baseDir . '/app/controllers/InvoicesController.php',
     'KnowledgeBaseController' => $baseDir . '/app/controllers/KnowledgeBaseController.php',
     'LeadsController' => $baseDir . '/app/controllers/LeadsController.php',
     'MainController' => $baseDir . '/app/controllers/MainController.php',
+    'Notification' => $baseDir . '/app/models/Notification.php',
     'NotificationsController' => $baseDir . '/app/controllers/NotificationsController.php',
     'PermissionsTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'Project' => $baseDir . '/app/models/Project.php',
@@ -53,4 +57,5 @@ return array(
     'Whoops\\Module' => $vendorDir . '/filp/whoops/src/deprecated/Zend/Module.php',
     'Whoops\\Provider\\Zend\\ExceptionStrategy' => $vendorDir . '/filp/whoops/src/deprecated/Zend/ExceptionStrategy.php',
     'Whoops\\Provider\\Zend\\RouteNotFoundStrategy' => $vendorDir . '/filp/whoops/src/deprecated/Zend/RouteNotFoundStrategy.php',
+    'ZohoInvoicesApi' => $baseDir . '/app/libraries/ZohoInvoicesApi.php',
 );

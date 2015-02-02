@@ -9,7 +9,7 @@
 
 	      	@include('partials.errors.validation')
 
-	        <div class="panel-heading font-bold">Create New User</div>
+	        <div class="panel-heading font-bold">Create New Incoice</div>
 	        <div class="panel-body">
 	          
 	          <!-- row -->
@@ -18,7 +18,15 @@
 	          	
 	          	<!-- business details -->
 	          	<div class="col-sm-6">
-	          		<h3>User Details</h3>
+	          		<h3>New Invoice</h3>
+
+	          		<!-- client -->
+		          	<div class="form-group">
+			        	<label class="font-bold">Client:</label> <span class="text-danger">*</span></label>
+			        	{{ Form::select('client', $clients,
+			        			$c, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
+		          	</div>
+		          	<!-- / client -->
 
 		          	<div class="form-group">
 			          	<label for="first_name">First Name <span class="text-danger">*</span></label>
@@ -83,7 +91,13 @@
 					          <a data-toggle="tooltip" data-placement="top" title="Assign the new user to a client.">
 				          		<i class="fa fa-question-circle"></i>
 				          	  </a>
-		          	        	{{ Form::select('client_id', $clients, null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
+					          <select name="client_id" class="form-control m-b" required>
+						          	<option selected> - </option>
+						          	<option value="1">Client 1</option>
+						          	<option value="2">Client 2</option>
+						          	<option value="3">Client 3</option>
+						          	<option value="4">Client 4</option>
+						        </select> 
 				          	</div>
 				        </div>
 
@@ -123,5 +137,4 @@
 	  </div>
 
 	  </div>
-    
 @stop

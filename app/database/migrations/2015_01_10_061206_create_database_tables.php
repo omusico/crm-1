@@ -60,6 +60,7 @@ class CreateDatabaseTables extends Migration {
 			$t->string('website')->nullable();
 			$t->string('abn')->nullable();
 			$t->string('email');
+			$t->string('phone');
 			$t->string('street_address')->nullable();
 			$t->string('city')->nullable();
 			$t->string('state')->nullable();
@@ -136,10 +137,10 @@ class CreateDatabaseTables extends Migration {
 		Schema::create('invoices', function($t)
 		{
 			$t->increments('id');
-			$t->integer('created_by')->unsigned();
-			$t->foreign('created_by')->references('id')->on('users');
 			$t->integer('client_id')->unsigned();
 			$t->foreign('client_id')->references('id')->on('clients');
+			$t->integer('created_by')->unsigned();
+			$t->foreign('created_by')->references('id')->on('users');
 			$t->integer('status')->unsigned();
 			$t->foreign('status')->references('id')->on('invoice_status');
 			$t->date('paid_at')->nullable();

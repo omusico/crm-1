@@ -48,5 +48,26 @@ class StringClass {
 	public static function htmlEncode($string) {
 		return htmlentities(trim($string));
 	}
+
+	/**
+	 * Santizes string.
+	 *
+	 * @param string $str
+	 * @param bool stripTags
+	 * @param string $tagsToLeave
+	 * @param bool $addSlashes
+	 * @return string
+	 */
+	public function sanitizeString($str, $stripTags = true, $tagsToLeave = '', $addSlashes = false)
+	{	
+		if($stripTags)
+			$str = strip_tags($str, $tagsToLeave);
+
+		if($addSlashes) {
+			if(strpos(str_replace("\'",""," $str"),"'") != false)
+			    $str = addslashes($str);
+		}
 		
+		return $str;
+	}	
 }

@@ -39,10 +39,13 @@ Route::group(array('before' => ['auth', 'status']), function() {
 	Route::put('users/{user_id}/activate', 'UsersController@activate');
 
 	/* CLIENT ROUTES */
-	Route::put('clients/{user_id}/suspend', 'ClientsController@suspend');
-	Route::put('clients/{user_id}/unsuspend', 'ClientsController@unsuspend');
 	Route::put('clients/{user_id}/deactivate', 'ClientsController@deactivate');
 	Route::put('clients/{user_id}/activate', 'ClientsController@activate');
+
+	/* CONTACT ROUTES */
+	//Route::get('contacts/{contact_person_id}/edit', 'ContactsController@edit');
+	Route::post('contacts/{contact_person_id}/primary', 'ContactsController@makePrimary');
+
 
 	/* ROUTE RESOURCES */
 	Route::resource('projects', 'ProjectsController');

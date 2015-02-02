@@ -3,13 +3,14 @@
 class UsersController extends \BaseController {
 
 	protected $user;
+	protected $client;
 	protected $notification;
 	protected $unsuccessfulAjaxResponse;
 
 	/**
 	*
 	*/
-	public function __construct(User $user, Notification $notification)
+	public function __construct(User $user, Client $client, Notification $notification)
 	{	
 		/* INSTANTIATE FILTERS */
 		$this->beforeFilter('csrf', ['on' => ['post'] ]);
@@ -20,6 +21,7 @@ class UsersController extends \BaseController {
 		
 		/* INSTANTIATE OTHER STUFF */
 		$this->user = $user;
+		$this->client = $client;
 		$this->notification = $notification;
 		$this->unsuccessfulAjaxResponse = ErrorClass::defaultAjaxErrorResponse();
 	}
@@ -49,7 +51,9 @@ class UsersController extends \BaseController {
 	{
 		return View::make('users.create', 
 			[
-				'title' => 'Create New User'
+				'title' => 'Create New User',
+				'pageHeader' => 'New User',
+				'clients' => $this->returnModelList($this->client, 'business_name', 'id', 'business_name')
 			]);
 	}
 
