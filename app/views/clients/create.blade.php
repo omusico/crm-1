@@ -89,13 +89,13 @@
 						          <label for="client">State / Territory</label>
 						          {{ Form::select('state', array(
 						          							'' => ' - ',
-						          							'nsw' => 'New South Wales',
-						          							'vic' => 'Victoria',
-						          							'qld' => 'Queensland',
-						          							'sa' => 'South Australia',
-						          							'nt' => 'Nothern Territory',
-						          							'wa' => 'Western Australia',
-						          							'tas' => 'Tasmania'
+						          							'New South Wales' => 'New South Wales',
+						          							'Victoria' => 'Victoria',
+						          							'Queensland' => 'Queensland',
+						          							'South Australia' => 'South Australia',
+						          							'Nothern Territory' => 'Nothern Territory',
+						          							'Western Australia' => 'Western Australia',
+						          							'Tasmania' => 'Tasmania'
 						          							), null, ['class' => 'form-control m-b']) }}
 						        </div>
 				          	</div>
@@ -114,13 +114,7 @@
 				        <div class="col-sm-6">
 				        	<div class="form-group">
 					          <label for="client">Country</label>
-					          {{ Form::select('country', array(
-					          							'' => ' - ',
-					          							'australia' => 'Australia',
-					          							'new-zealand' => 'New Zealand',
-					          							'united-states' => 'United States',
-					          							'united-kingdom' => 'United Kingdom'
-					          							), null, ['class' => 'form-control m-b']) }}
+					          {{ Form::select('country', array('Australia' => 'Australia'), null, ['class' => 'form-control m-b']) }}
 					        </div>
 				        </div>
 				    </div>

@@ -16,13 +16,13 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="client">First Name <span class="text-danger">*</span></label>
-                        {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'John', 'required']) }}
+                        {{ Form::text('first_name', null, ['class' => 'form-control', 'required']) }}
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="client">Last Name <span class="text-danger">*</span></label>
-                        {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Doe', 'required']) }}
+                        {{ Form::text('last_name', null, ['class' => 'form-control', 'required']) }}
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
             
             <div class="form-group">
                 <label for="client">Email <span class="text-danger">*</span></label>
-                {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'myemail@example.com', 'required']) }}
+                {{ Form::email('email', null, ['class' => 'form-control', 'required']) }}
             </div>
 
             <!-- row -->
@@ -38,13 +38,13 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="client">Primary Phone (Mobile)</label>
-                        {{ Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.423 650 187',]) }}
+                        {{ Form::text('mobile', null, ['class' => 'form-control']) }}
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="client">Secondary Phone (Landline)</label>
-                        {{ Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.323 650 187']) }}
+                        {{ Form::text('phone', null, ['class' => 'form-control']) }}
                     </div>
                 </div>
             </div>

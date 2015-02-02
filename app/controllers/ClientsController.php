@@ -74,7 +74,7 @@ class ClientsController extends \BaseController {
 			[
 				'title' 		=> 'Create New Client',
 				'pageHeader' 	=> 'Create New Client',
-				'industries'	=> $this->returnModelList($this->industry, 'industry', 'id', 'id')
+				'industries'	=> $this->returnModelList($this->industry, 'industry', 'industry', 'id')
 			]);
 	}
 
