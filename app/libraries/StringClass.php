@@ -60,6 +60,8 @@ class StringClass {
 	 */
 	public function sanitizeString($str, $stripTags = true, $tagsToLeave = '', $addSlashes = false)
 	{	
+		$str = str_replace('&', 'and', trim($str);
+
 		if($stripTags)
 			$str = strip_tags($str, $tagsToLeave);
 
