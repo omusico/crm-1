@@ -63,11 +63,4 @@
 
 @include('partials.items.modal-update-item')
 
-<script>
-    // window.onload = function() {
-    //   (function(){
-    //     onloadAjax('items', 'get', 'tbody');
-    //   })();
-    // };
-</script>
 @stop
