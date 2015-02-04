@@ -2,7 +2,7 @@
 <div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      {{ Form::open(['action' => 'ContactsController@store', 'id' => 'new-contact-form']) }}
+      {{ Form::open(['action' => 'ContactsController@store', 'method' => 'post', 'id' => 'new-contact-form', 'class' => 'no-return-form form-label-bold']) }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">{{ $client['company_name'] }} - New Contact</h4>

@@ -71,5 +71,5 @@ class StringClass {
 		}
 		
 		return $str;
-	}	
+	}
 }

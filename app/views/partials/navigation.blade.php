@@ -307,6 +307,45 @@
               </ul>
             </li>
 
+            <!-- INVOICES NAV -->
+            <li>
+              <a href="{{ action('InvoicesController@index') }}" class="auto">
+                <span class="pull-right text-muted">
+                  <i class="fa fa-fw fa-angle-right text"></i>
+                  <i class="fa fa-fw fa-angle-down text-active"></i>
+                </span>
+                <i class="fa fa-briefcase icon"></i>
+                <span class="font-bold">Invoices</span>
+              </a>
+              <ul class="nav nav-sub dk">
+                <li class="nav-sub-header">
+                  <a href>
+                    <span>Invoices</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ action('InvoicesController@create') }}">
+                    <span>Create Invoice</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ action('InvoicesController@index') }}">
+                    <span>Invoices</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ action('ItemsController@index') }}">
+                    <span>Invoice Items</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ action('ItemsController@create') }}">
+                    <span>New Item</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
             <!-- Users NAV -->
             <li>
               <a href="{{ action('UsersController@index') }}" class="auto">

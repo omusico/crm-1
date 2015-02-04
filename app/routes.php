@@ -43,9 +43,7 @@ Route::group(array('before' => ['auth', 'status']), function() {
 	Route::put('clients/{user_id}/activate', 'ClientsController@activate');
 
 	/* CONTACT ROUTES */
-	//Route::get('contacts/{contact_person_id}/edit', 'ContactsController@edit');
 	Route::post('contacts/{contact_person_id}/primary', 'ContactsController@makePrimary');
-
 
 	/* ROUTE RESOURCES */
 	Route::resource('projects', 'ProjectsController');
@@ -62,5 +60,6 @@ Route::group(array('before' => ['auth', 'status']), function() {
 	Route::resource('support', 'SupportController');
 	Route::resource('emails', 'EmailsController');
 	Route::resource('invoices', 'InvoicesController');
+	Route::resource('items', 'ItemsController');
 	Route::resource('configurations', 'ConfigurationsController');
 });

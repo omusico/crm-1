@@ -28,8 +28,7 @@
 <script src="{{ asset('js/chosen/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('js/wysiwyg/bootstrap-wysiwyg.js') }}"></script>
 <script src="{{ asset('js/wysiwyg/jquery.hotkeys.js') }}"></script>
-<script src="{{ asset('js/onload.js') }}"></script>
-<script src="{{ asset('js/onloadAjax.js') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
 
 <!-- NOTIFICATIONS -->
 @include('notifications.master')

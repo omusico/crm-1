@@ -32,12 +32,12 @@ class Notification extends Eloquent {
 	 * 
 	 * @param  string  $type
 	 * @param  string  $message
-	 * @param  int  $length (Optional)
+	 * @param  int  $length (in milliseconds) (Optional)
 	 */
 	public function newStandardNotification($type, $message, $length = 5000)
 	{
 		Session::flash('notificationType', "'" . $type . "'");
-		Session::flash('notificationMessage', "'" . $message . "'");
+		Session::flash('notificationMessage', "'" . addslashes($message) . "'");
 		Session::flash('notificationLength', $length);
 	}
 }

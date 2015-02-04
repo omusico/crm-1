@@ -61,9 +61,6 @@
 	margin: 10px;
 	text-align: center;
 }
-
-#create-client-form label, 
-#new-contact-form label,
-#update-contact-form label {
+.form-label-bold label {
     font-weight: bold;
 }

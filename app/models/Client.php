@@ -23,7 +23,7 @@ class Client extends Eloquent {
 	 */
 	protected $fillable = array();
 
-	public function santizeInput($input)
+	public function santizeNewInput($input)
 	{
 		$string = App::make('StringClass');
 
@@ -69,7 +69,50 @@ class Client extends Eloquent {
 					'is_primary_contact' => true,
 				]
 			],
-			'notes' => $input['notes']
+			'notes' => $string->sanitizeString($input['notes'])
+		];
+		
+		return $client;
+	}
+
+
+	public function santizeUpdateInput($input)
+	{
+		$string = App::make('StringClass');
+
+		//build POST payload
+		$client = [
+			'contact_name' => $string->sanitizeString($input['name']),
+			'company_name' => $string->sanitizeString($input['name']),
+			'website' => $string->sanitizeString($input['website']),
+			'custom_fields' => [
+				[
+					'index' => 1,
+					'value'	=> $string->sanitizeString($input['industry'])
+				],
+				[
+					'index' => 2,
+					'value' => $string->sanitizeString($input['email'])
+				],
+				[
+					'index' => 3,
+					'value' => $string->sanitizeString($input['phone'])
+				],
+				[	
+					'index' => 4,
+					'value' => $string->sanitizeString($input['abn'])
+				],
+			],
+			'billing_address' => $billing_address = [
+				'address' 	=> $string->sanitizeString($input['address']),
+				'city' 		=> $string->sanitizeString($input['city']),
+				'state'		=> $string->sanitizeString($input['state']),
+				'zip' 		=> $string->sanitizeString($input['zip']),
+				'country'	=> $string->sanitizeString($input['country']),
+				'fax' 		=> '',
+			],
+			'shipping_address' => $billing_address,
+			'notes' => $string->sanitizeString($input['notes'])
 		];
 		
 		return $client;

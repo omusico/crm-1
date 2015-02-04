@@ -8,7 +8,7 @@ class BaseApi {
 	 * @param string $url
 	 * @return array
 	 */
-	public function sendGetRequest($url)
+	protected function sendGetRequest($url)
 	{
 		$json = file_get_contents($url, false, null);
 		return json_decode($json, true);
@@ -22,7 +22,7 @@ class BaseApi {
 	 * @param string $data
 	 * @return array
 	 */
-	public function sendPostRequest($url, $data)
+	protected function sendPostRequest($url, $data)
 	{		 
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url);
@@ -45,7 +45,7 @@ class BaseApi {
 	 * @param srting $url
 	 * @return array
 	 */
-	public function sendPutRequest($url, $data)
+	protected function sendPutRequest($url, $data)
 	{
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url);
@@ -69,7 +69,7 @@ class BaseApi {
 	 * @param srting $url
 	 * @return array
 	 */
-	public function sendDeleteRequest($url)
+	protected function sendDeleteRequest($url)
 	{
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url);
@@ -85,6 +85,27 @@ class BaseApi {
 		return json_decode($response, true);
 	}
 
-	
 
+	/**
+	 * Build query string
+	 * 
+	 * @param array $params
+	 * @return string
+	 */
+	protected function buildQueryParams($params)
+	{
+		return http_build_query($params);
+	}
+
+
+	/**
+	 * Convert array data to JSON
+	 * 
+	 * @param array $attributes
+	 * @return JSON
+	 */
+	protected function jsonEncode($attributes)
+	{
+		return json_encode($attributes);
+	}	
 }

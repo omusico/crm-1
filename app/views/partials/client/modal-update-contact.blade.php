@@ -2,7 +2,7 @@
 <div class="modal fade" id="updateContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      {{ Form::open(['action' => 'ContactsController@update', 'id' => 'update-contact-form']) }}
+      {{ Form::open(['action' => 'ContactsController@update', 'method' => 'put', 'id' => 'update-contact-form', 'class' => 'no-return-form form-label-bold']) }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">{{ $client['company_name'] }} - Update Contact</h4>
@@ -91,7 +91,7 @@
             Make Primary Contact
         </a>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-info">Update Contact</button>
+        <button type="submit" class="btn btn-info">Save Changes</button>
       </div>
       {{ Form::close() }}
     </div>

@@ -27,7 +27,7 @@
 		          	<div class="form-group">
 			          	<div class="form-group">
 				          <label for="client">Industry <span class="text-danger">*</span></label>
-				          	{{ Form::select('industry', $industries, '', ['class' => 'form-control m-b']) }}
+				          	{{ Form::select('industry', $industries, null, ['class' => 'form-control m-b']) }}
 				        </div>
 		          	</div>
 
@@ -157,14 +157,14 @@
 		          	<div class="row">
 		          		<div class="col-sm-6">
 				          	<div class="form-group">
-					          	<label for="client">Primary Phone <span class="text-danger">*</span></label>
-					          	{{ Form::text('contact_primary_phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.423 650 187',]) }}
+					          	<label for="client">Primary Phone</label>
+					          	{{ Form::text('contact_primary_phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.423 650 187']) }}
 				          	</div>
 				        </div>
 				     	<div class="col-sm-6">
 				          	<div class="form-group">
-					          	<label for="client"> Phone</label>
-					          	{{ Form::text('contact_secondary_phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.323 650 187', 'required']) }}
+					          	<label for="client">Secondary Phone</label>
+					          	{{ Form::text('contact_secondary_phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.323 650 187']) }}
 				          	</div>
 				        </div>
 				    </div>

@@ -57,8 +57,7 @@ class ClientsController extends \BaseController {
 		return View::make('clients.index', 
 			[
 				'title' 		=> 'Clients',
-				'pageHeader' 	=> 'Clients',
-				//'clients'		=>  '' //$this->zohoApi->getAllContacts() //$this->client->getClients()
+				'pageHeader' 	=> 'Clients'
 			]);
 	}
 
@@ -92,7 +91,7 @@ class ClientsController extends \BaseController {
 			return Redirect::back()->withInput()->withErrors($v);
 
 
-		$response = $this->zohoApi->createContact($this->client->santizeInput($input));
+		$response = $this->zohoApi->createContact($this->client->santizeNewInput($input));
 
 		if($response['message'] === 'The contact has been added.')
 		{
@@ -125,7 +124,8 @@ class ClientsController extends \BaseController {
 			[
 				'title' => 'Client - ' . $client['contact_name'],
 				'pageHeader' => 'Client - ' . $client['contact_name'],
-				'client' => $client
+				'client' => $client,
+				'industries' => $this->returnModelList($this->industry, 'industry', 'industry', 'id')
 			]);	
 		}
 		else
@@ -155,7 +155,26 @@ class ClientsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		if(Request::ajax())
+		{
+			// validate input
+			$v = Validator::make($input = Input::all(), $this->rules->updateClientRules);
+			if($v->fails())
+				return Redirect::back()->withInput()->withErrors($v);
+
+
+			$response = $this->zohoApi->updateContact(Input::get('contact_id'), $this->client->santizeUpdateInput($input));
+
+			if($response['message'] === 'Contact information has been saved.')
+			{
+				$this->notification->newStandardNotification('success', '<b>'. $response['contact']['company_name'] . '</b> has had their details saved.');
+				return 'success';
+			}
+			else
+			{
+				return $response['message'];
+			}
+		}
 	}
 
 
@@ -219,6 +238,5 @@ class ClientsController extends \BaseController {
 			}
 		}	
 	}
-
 
 }

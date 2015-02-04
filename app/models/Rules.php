@@ -35,6 +35,21 @@ class Rules {
 		'notes'						=> '',
 	];
 
+	public $updateClientRules = [
+		'name'						=> 'required',
+		'industry'					=> 'required',
+		'phone'						=> 'required|min:6',
+		'email'						=> 'required|email',
+		'webiste'					=> 'url',
+		'abn'						=> 'min:6',
+		'address'					=> '',
+		'city'						=> '',
+		'state'						=> '',
+		'zip'						=> 'numeric|min:4',
+		'counrty'					=> '',
+		'notes'						=> '',
+	];
+
 	public $newContactPersonRules = [
 		'contact_id'			=> 'required',
 		'first_name'			=> 'required',
@@ -53,6 +68,12 @@ class Rules {
 		'email'					=> 'required|email',
 		'phone'					=> 'min:6',
 		'mobile'				=> 'min:6',
+	];
+
+	public $newItemRules = [
+		'name' 			=> 'required',
+		'description' 	=> 'required',
+		'price' 			=> 'required|regex:/^\d*\.?\d*$/'
 	];
 
 }

@@ -20,13 +20,22 @@ class ZohoInvoicesApi extends BaseApi {
 		define("ORGANIZATIONS", 'organizations');
 		define("CONTACTS", "contacts");
 		define('CONTACTPERSONS', 'contactpersons');
-		
 		define("INVOICES", "invoices");
 		define("ITEMS", "items");
 	}
 
+	/**
+	 *
+	 *
+	 *
+	 */
+	private function getAuthParams()
+	{
+		return AUTHTOKEN.'='.$this->authToken.'&'.ORGANIZATION_ID.'='.$this->organizationId;
+	}
+
 	/**********************************/
-	/***		  Contacts			***/
+	/***	 Contacts (Clients)		***/
 	/**********************************/
 
 	/**
@@ -38,9 +47,8 @@ class ZohoInvoicesApi extends BaseApi {
 	public function getAllContacts($params = [])
 	{
 		$url = 	BASE_URL.'/'.CONTACTS.'?'.
-				AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId.'&'.
-				http_build_query($params);
+				$this->getAuthParams().'&'.
+				$this->buildQueryParams($params);
 
 		return $this->sendGetRequest($url);
 	}
@@ -59,9 +67,8 @@ class ZohoInvoicesApi extends BaseApi {
 			return 'Supplied arguement needs to be an array. '.ucfirst(gettype($params)).' given.';
 
 		$url = 	BASE_URL.'/'.CONTACTS.'/'.intval($contact_id).'?'.
-				AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId.'&'.
-				http_build_query($params);
+				$this->getAuthParams().'&'.
+				$this->buildQueryParams($params);
 
 		return $this->sendGetRequest($url);
 	}
@@ -80,9 +87,7 @@ class ZohoInvoicesApi extends BaseApi {
 
 		$url = BASE_URL.'/'.CONTACTS;
 
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId.'&'.
-				JSONSTRING.'='.json_encode($attributes);
+		$data = $this->getAuthParams().'&'.JSONSTRING.'='.$this->jsonEncode($attributes);
 		
 		return $this->sendPostRequest($url, $data);
 	}
@@ -101,9 +106,7 @@ class ZohoInvoicesApi extends BaseApi {
 
 		$url = BASE_URL.'/'.CONTACTS.'/'.intval($contact_id);
 
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId.'&'.
-				JSONSTRING.'='.json_encode($attributes);
+		$data = $this->getAuthParams().'&'.JSONSTRING.'='.$this->jsonEncode($attributes);
 		
 		return $this->sendPutRequest($url, $data);
 	}
@@ -118,8 +121,7 @@ class ZohoInvoicesApi extends BaseApi {
 	public function deleteContact($contact_id)
 	{
 		$url = 	BASE_URL.'/'.CONTACTS.'/'.intval($contact_id).'?'.
-				AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId;
+				$this->getAuthParams();
 
 		return $this->sendDeleteRequest($url);
 	}
@@ -136,8 +138,7 @@ class ZohoInvoicesApi extends BaseApi {
 		// POST  /contacts/:contact_id/active
 		$url = 	BASE_URL.'/'.CONTACTS.'/'.intval($contact_id).'/active';
 
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId;
+		$data = $this->getAuthParams();
 
 		return $this->sendPostRequest($url, $data);
 	}
@@ -153,8 +154,7 @@ class ZohoInvoicesApi extends BaseApi {
 	{
 		$url = 	BASE_URL.'/'.CONTACTS.'/'.intval($contact_id).'/inactive';
 
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId;
+		$data = $this->getAuthParams();
 
 		return $this->sendPostRequest($url, $data);
 	}
@@ -174,8 +174,7 @@ class ZohoInvoicesApi extends BaseApi {
 	{
 	
 		$url = 	BASE_URL.'/'.CONTACTS.'/'.intval($contact_id).'/'.CONTACTPERSONS.'/'.intval($contact_person_id).'?'.
-				AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId;
+				$this->getAuthParams();
 
 		return $this->sendGetRequest($url);
 	}
@@ -194,27 +193,7 @@ class ZohoInvoicesApi extends BaseApi {
 
 		$url = BASE_URL.'/'.CONTACTS.'/'.CONTACTPERSONS;
 
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId.'&'.
-				JSONSTRING.'='.json_encode($attributes);
-		
-		return $this->sendPostRequest($url, $data);
-	}
-
-
-	/**
-	 * Create a new contact person for pri
-	 *
-	 * @param string $contact_person_id
-	 * @return arrary
-	 */
-	public function makeContactPersonPrimary($contact_person_id)
-	{
-		
-		$url = BASE_URL.'/'.CONTACTS.'/'.CONTACTPERSONS.'/'.$contact_person_id.'/primary';
-
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId;
+		$data = $this->getAuthParams().'&'.JSONSTRING.'='.$this->jsonEncode($attributes);
 		
 		return $this->sendPostRequest($url, $data);
 	}
@@ -230,11 +209,26 @@ class ZohoInvoicesApi extends BaseApi {
 	{
 		$url = BASE_URL.'/'.CONTACTS.'/'.CONTACTPERSONS.'/'.intval(Input::get('contact_person_id'));
 
-		$data = AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId.'&'.
-				JSONSTRING.'='.json_encode($attributes);
+		$data = $this->getAuthParams().'&'.JSONSTRING.'='.$this->jsonEncode($attributes);
 		
 		return $this->sendPutRequest($url, $data);
+	}
+
+
+	/**
+	 * Create a new contact person for pri
+	 *
+	 * @param string $contact_person_id
+	 * @return arrary
+	 */
+	public function makeContactPersonPrimary($contact_person_id)
+	{
+		
+		$url = BASE_URL.'/'.CONTACTS.'/'.CONTACTPERSONS.'/'.$contact_person_id.'/primary';
+
+		$data = $this->getAuthParams();
+		
+		return $this->sendPostRequest($url, $data);
 	}
 
 
@@ -247,8 +241,94 @@ class ZohoInvoicesApi extends BaseApi {
 	public function deleteContactPerson($contact_person_id)
 	{
 		$url = 	BASE_URL.'/'.CONTACTS.'/'.CONTACTPERSONS.'/'.intval($contact_person_id).'?'.
-				AUTHTOKEN.'='.$this->authToken.'&'.
-				ORGANIZATION_ID.'='.$this->organizationId;
+				$this->getAuthParams();
+
+		return $this->sendDeleteRequest($url);
+	}
+
+
+	/**********************************/
+	/***        Invoice Items		***/
+	/**********************************/
+
+	/**
+	 * Get all items.
+	 * 
+	 * @param array $params
+	 * @return array
+	 */
+	public function getAllItems($params = [])
+	{
+		$url = 	BASE_URL.'/'.ITEMS.'?'.
+				$this->getAuthParams().'&'.
+				$this->buildQueryParams($params);
+
+		return $this->sendGetRequest($url);
+	}
+
+
+	/**
+	 * Get items.
+	 * 
+	 * @param array $item_id
+	 * @return array
+	 */
+	public function getItem($item_id)
+	{
+		$url = 	BASE_URL.'/'.ITEMS.'/'.intval($item_id).'?'.
+				$this->getAuthParams();
+
+		return $this->sendGetRequest($url);
+	}
+
+	/**
+	 * Create an item.
+	 *
+	 * @param array $attributes
+	 * @return array
+	 */
+	public function createItem($attributes)
+	{
+		if(!is_array($attributes))
+			return 'Supplied arguement needs to be an array. '.ucfirst(gettype($attributes)).' given.';
+
+		$url = BASE_URL.'/'.ITEMS;
+
+		$data = $this->getAuthParams().'&'.JSONSTRING.'='.$this->jsonEncode($attributes);
+		
+		return $this->sendPostRequest($url, $data);
+	}
+
+
+	/**
+	 * Update an item
+	 *
+	 * @param array $attributes
+	 * @return array
+	 */
+	public function updateItem($item_id, $attributes)
+	{
+		if(!is_array($attributes))
+			return 'Second arguement needs to be an array. '.ucfirst(gettype($attributes)).' given.';
+
+		$url = BASE_URL.'/'.ITEMS.'/'.intval($item_id);
+
+		$data = $this->getAuthParams().'&'.JSONSTRING.'='.$this->jsonEncode($attributes);
+		
+		return $this->sendPutRequest($url, $data);
+	}
+
+
+	/**
+	 * Delete item
+	 *
+	 * @param string $item_id
+	 * @return array
+	 */
+	public function deleteItem($item_id)
+	{
+		$url = 	BASE_URL.'/'.ITEMS.'/'.intval($item_id).'?'.
+				$this->getAuthParams();
 
 		return $this->sendDeleteRequest($url);
 	}

@@ -70,7 +70,7 @@
 
       <div class="client-btns">
           <ul>
-              <li><a href="{{ url('client/'.$client['contact_id'].'/edit') }}" class="btn btn-md btn-info">Edit Profile</a></li>
+              <li><a href class="btn btn-md btn-info" data-toggle="modal" data-target="#updateClientModal">Edit Profile</a></li>
               @if($client['status'] === 'active')
               <li>
                 <a  href="#"
@@ -134,5 +134,6 @@
   </div>
 </div>
 
+@include('partials.client.modal-update-client')
 @include('partials.client.modal-create-contact')
 @include('partials.client.modal-update-contact')

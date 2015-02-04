@@ -3,12 +3,12 @@
 class InvoicesController extends \BaseController {
 
 	protected $client;
-	protected $zoho;
+	protected $zohoApi;
 
-	public function __construct(Client $client, ZohoInvoicesApi $zoho)
+	public function __construct(Client $client, ZohoInvoicesApi $zohoApi)
 	{
 		$this->client = $client;
-		$this->zoho = $zoho;
+		$this->zoho = $zohoApi;
 	}
 
 	/**

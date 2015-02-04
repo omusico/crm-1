@@ -1,5 +1,5 @@
 @if(Session::has('error') || count($errors->all()) > 0)
-<div class="text-danger wrapper text-center">
+<div class="text-danger wrapper">
 	@foreach ($errors->all() as $error)
 		<p>{{ $error }}</p>
 	@endforeach
