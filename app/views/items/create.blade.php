@@ -31,7 +31,10 @@
 				       	<div class="col-sm-6">
 				          	<div class="form-group">
 					          	<label for="last_name">Price <span class="text-danger">*</span></label>
-					          	{{ Form::text('price', null, ['class' => 'form-control', 'required']) }}
+					          	<div class="input-group m-b">
+                          			<span class="input-group-addon">$</span>
+					          		{{ Form::text('price', null, ['class' => 'form-control', 'required']) }}
+					          	</div>
 				          	</div>
 				        </div>
 				    </div>
@@ -39,7 +42,7 @@
 
 		          	<div class="form-group">
 			          	<label for="email">Description <span class="text-danger">*</span></label>
-			          	{{ Form::textarea('description', null, ['class' => 'form-control', 'required']) }}
+			          	{{ Form::textarea('description', null, ['class' => 'form-control', 'rows' => '4' , 'required']) }}
 		          	</div>
 
 	          	</div>

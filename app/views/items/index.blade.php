@@ -38,7 +38,7 @@
               <tr>
                   <td><a href="{{ url('/items/'.$item['item_id']) }}">{{ $item['name'] }}</a></td>
                   <td>{{ $item['description'] }}</td>
-                  <td>{{ $item['rate'] }}</td>
+                  <td>{{ '$'.$item['rate'] }}</td>
                   @if($item['status'] === 'active')
                     <td><span class="label bg-success">{{ ucfirst($item['status']) }}</span></td>
                   @else

@@ -35,7 +35,7 @@ class ClientsController extends \BaseController {
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of clients.
 	 *
 	 * @return Response
 	 */
