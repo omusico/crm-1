@@ -28,7 +28,7 @@ class Rules {
 		'contact_first_name'		=> 'required',
 		'contact_last_name'			=> 'required',
 		'contact_email'				=> 'required|email',
-		'contact_primary_phone' 	=> 'required|min:6',
+		'contact_primary_phone' 	=> 'min:6',
 		'contact_secondary_phone'	=> 'min:6',
 		'password'					=> 'required|min:6',
 		'password_confirm'			=> 'same:password',

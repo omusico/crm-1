@@ -14,117 +14,177 @@
 	          
 	          <!-- row -->
 	          <div class="row">
-	          {{ Form::open(['action' => 'UsersController@store']) }}
+	          {{ Form::open(['action' => 'InvoicesController@store', 'class' => 'form-label-bold']) }}
 	          	
 	          	<!-- business details -->
-	          	<div class="col-sm-6">
+	          	<div class="col-sm-8">
 	          		<h3>New Invoice</h3>
 
-	          		<!-- client -->
-		          	<div class="form-group">
-			        	<label class="font-bold">Client:</label> <span class="text-danger">*</span></label>
-			        	{{ Form::select('client', $clients,
-			        			$c, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
-		          	</div>
-		          	<!-- / client -->
+	          		<div class="row">
+	          			<div class="col-sm-8">
 
-		          	<div class="form-group">
-			          	<label for="first_name">First Name <span class="text-danger">*</span></label>
-			          	{{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'eg. Jane', 'required']) }}
-		          	</div>
-
-		          	<div class="form-group">
-			          	<label for="last_name">Last Name <span class="text-danger">*</span></label>
-			          	{{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'eg. Doe', 'required']) }}
-		          	</div>
-
-		          	<!-- row -->
-		          	<div class="row">
-		          		<div class="col-sm-6">
+			          		<!-- client -->
 				          	<div class="form-group">
-					          	<label for="client">Primary Phone (Mobile) <span class="text-danger">*</span></label>
-					          	{{ Form::text('primary_phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.423 650 187',]) }}
+					        	<label>Client:</label> <span class="text-danger">*</span></label>
+					        	{{ Form::select('client', $clients,
+					        			$c, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
 				          	</div>
-				        </div>
-				     	<div class="col-sm-6">
+				          	<!-- / client -->
+
 				          	<div class="form-group">
-					          	<label for="client">Secondary Phone (Landline)</label>
-					          	{{ Form::text('secondary_phone', null, ['class' => 'form-control', 'placeholder' => 'eg. +61.323 650 187', 'required']) }}
+					          	<label for="last_name">Due Date <span class="text-danger">*</span></label>
+					          	<div class="input-group m-b">
+					          		{{ Form::select('due_date', [
+					          				'15' => 'Net 15',
+					          				'30' => 'Net 30',
+					          				'45' => 'Net 45',
+					          				'60' => 'Net 60',
+					          				'0'  => 'Due on Receipt'
+					          				],
+					        			'15', ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
+					          		<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					          	</div>
+					          	<p class="pull-right font-bold text-info">Due Date: <span class="due_date"></span></p>
 				          	</div>
+				          	
 				        </div>
 				    </div>
-				    <!-- / row -->
+				    
+				    
+				    <div class="form-group line-items">
 
-		          	<div class="form-group">
-			          	<label for="email">Email Address</label> <span class="text-danger">*</span></label>
-			          	<a data-toggle="tooltip" data-placement="top" title="The user's email address will act as their username.">
-			          		<i class="fa fa-question-circle"></i>
-			          	</a>
-			          	{{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'eg. newuser@example.com']) }}
-		          	</div>
+				    	<div class="items-header">
+				    		<span class="line-item-column item-details">Item Details</span>
+				    		<span class="line-item-column item-quantity">Quantity</span>
+				    		<span class="line-item-column item-rate">Rate</span>
+				    		<span class="line-item-column item-discount">Discount</span>
+				    		<span class="line-item-column item-tax">Tax</span>
+				    		<span class="line-item-column item-amount ta-right">Amount</span>
+				    	</div>
 
-		          	<!-- row -->
-		          	<div class="row">
-		          		<div class="col-sm-6">
-				          	<div class="form-group">
-					          	<label for="password">Password <span class="text-danger">*</span></label> 
-					          	<a data-toggle="tooltip" data-placement="top" title="Password must be a minimun of 6 characters.">
-					          		<i class="fa fa-question-circle"></i>
-					          	</a>
-					          	{{ Form::password('password', ['class' => 'form-control', 'required']) }}
-				          	</div>
-				        </div>
-				     	<div class="col-sm-6">
-				          	<div class="form-group">
-					          	<label for="password_confirm">Comfirm Password</label> <span class="text-danger">*</span>
-					          	{{ Form::password('password_confirm', ['class' => 'form-control', 'required']) }}
-				          	</div>
-				        </div>
-				    </div>
-				    <!-- / row -->
+				    	<!-- item -->
+				    	<div class="form-group item item-1">
+				    		<span class="line-item-column item-details">
+			    				{{ Form::select('item', $items,
+					        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'required']) }}
+				    		</span>
+				    		<span class="line-item-column item-quantity">
+			    				{{ Form::text('quantity', '1.00', ['class' => 'form-control', 'required']) }}
+				    		</span>
+				    		<span class="line-item-column item-rate">
+			    				{{ Form::text('rate', '0.00', ['class' => 'form-control', 'required']) }}
+				    		</span>
+				    		<span class="line-item-column item-discount">
+				    			<div class="input-group">
+			    					{{ Form::text('discount', null, ['class' => 'form-control', 'required', 'data-discount-type'=> '$']) }}
+								   	<div class="input-group-btn">
+								       	<button type="button" class="btn btn-default dropdown-toggle discount-dropdown" data-toggle="dropdown" aria-expanded="false">$ <span class="caret"></span></button>
+								      	<ul class="dropdown-menu dropdown-menu-right discount-dropdown" role="menu">
+								       		<li><a class="discount-type">$</a></li>
+								      		<li><a class="discount-type">%</a></li>
+								       	</ul>
+								  	</div>
+								</div>
+				    		</span>
+				    		<span class="line-item-column item-tax">
+			    				{{ Form::select('tax', ['0' => 'None', '10' => 'GST [10%]'],
+			    						'10', ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen','required']) }}
+				    		</span>
+				    		<span class="line-item-column item-amount ta-right text-larger">
+			    				0.00
+				    		</span>
+				    		<span class="line-item-column not-active">
+				    			<a href class=""><i class="item-remove fa fa-remove"></i></a>
+				    			</a>
+				    		</span>
+				    	</div>
+				    	<!-- / item -->
 
-		          	<!-- row -->
-		          	<div class="row">
-		          		<div class="col-sm-6">
-				          	<div class="form-group">
-					          <label for="client_id">Client</label> <span class="text-danger">*</span>
-					          <a data-toggle="tooltip" data-placement="top" title="Assign the new user to a client.">
-				          		<i class="fa fa-question-circle"></i>
-				          	  </a>
-					          <select name="client_id" class="form-control m-b" required>
-						          	<option selected> - </option>
-						          	<option value="1">Client 1</option>
-						          	<option value="2">Client 2</option>
-						          	<option value="3">Client 3</option>
-						          	<option value="4">Client 4</option>
-						        </select> 
-				          	</div>
-				        </div>
+				    	<!-- item -->
+				    	<div class="form-group item item-2">
+				    		<span class="line-item-column item-details">
+			    				{{ Form::select('item', $items,
+					        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'required']) }}
+				    		</span>
+				    		<span class="line-item-column item-quantity">
+			    				{{ Form::text('quantity', '1.00', ['class' => 'form-control', 'required']) }}
+				    		</span>
+				    		<span class="line-item-column item-rate">
+			    				{{ Form::text('rate', '0.00', ['class' => 'form-control', 'required']) }}
+				    		</span>
+				    		<span class="line-item-column item-discount">
+				    			<div class="input-group">
+			    					{{ Form::text('discount', null, ['class' => 'form-control', 'required', 'data-discount-type'=> '$']) }}
+								   	<div class="input-group-btn">
+								       	<button type="button" class="btn btn-default dropdown-toggle discount-dropdown" data-toggle="dropdown" aria-expanded="false">$ <span class="caret"></span></button>
+								      	<ul class="dropdown-menu dropdown-menu-right discount-dropdown" role="menu">
+								       		<li><a class="discount-type">$</a></li>
+								      		<li><a class="discount-type">%</a></li>
+								       	</ul>
+								  	</div>
+								</div>
+				    		</span>
+				    		<span class="line-item-column item-tax">
+			    				{{ Form::select('tax', ['0' => 'None', '10' => 'GST [10%]'],
+			    						'10', ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen','required']) }}
+				    		</span>
+				    		<span class="line-item-column item-amount ta-right text-larger">
+			    				0.00
+				    		</span>
+				    		<span class="line-item-column">
+				    			<a href class=""><i class="item-remove fa fa-remove"></i></a>
+				    			</a>
+				    		</span>
+				    	</div>
+				    	<!-- / item -->
 
-				        <div class="col-sm-6">
-				          	<div class="form-group">
-					          <label for="permission_id">Client Privileges</label> <span class="text-danger">*</span>
-					          <a data-toggle="tooltip" data-placement="top" title="Assign the level of permissions this user has.">
-				          		<i class="fa fa-question-circle"></i>
-				          	  </a>
-					          <select name="permission_id" class="form-control m-b" required>
-						          	<option> - </option>
-						          	<option value="1">Privilege 1</option>
-						          	<option value="2">Privilege 2</option>
-						          	<option value="3">Privilege 3</option>
-						          	<option value="4">Privilege 4</option>
-						        </select>
-				          	</div>
-				        </div>
-				    </div>
-				    <!-- / row -->
+				    	<div class="items-header">
+					    	<a class="text-info add-invoice-item">+ Add another item</a>
+					    </div>
 
-	          	</div>
-	          	<!-- / business detail -->
+			    	</div>
+
+			    	<div class="col-md-5 col-md-offset-7">
+
+			    		<div class="row form-group line-items-subsection">
+
+			    			<div class="section line-item-subtotal">
+			    				<span class="col-sm-9 text-larger subtotal-label">Sub Total</span>
+			    				<span class="col-sm-3 text-larger ta-right subtotal-value">0.00</span>
+				    		</div>
+
+				    		<div class="section line-item-adjustment">
+			    				<span class="col-sm-4 text-larger adjustment-label">Adjustment</span>
+			    				<span class="col-sm-5 text-larger adjustment-amount">
+			    					{{ Form::text('adjustment', null, ['class' => 'form-control']) }}
+			    				</span>
+			    				<span class="col-sm-3 text-larger ta-right adjustment-value">0.00</span>
+				    		</div>
+
+				    		<div class="section line-item-total">
+			    				<span class="col-sm-9 text-larger total-label">Total ($)</span>
+			    				<span class="col-sm-3 text-larger ta-right total-value">0.00</span>
+				    		</div>
+
+
+				    	</div>
+
+			    	</div>
+
+
+
+				</div>
+				    <!-- / row
+
+			    	
+			    	
+			    
+			    
 
 	          	<div class="col-sm-12">
-	          		{{ Form::button('Cancel', ['class' => 'btn btn-md btn-default']) }}
-	          		{{ Form::submit('Save User', ['class' => 'btn btn-md btn-danger']) }}
+	          		<a href="{{ action('InvoicesController@store') }}" class="btn btn-md btn-default">Cancel</a>
+	          		{{ Form::submit('Save and Send', ['class' => 'btn btn-md btn-danger']) }}
+	          		{{ Form::submit('Save as Draft', ['class' => 'btn btn-md btn-default']) }}
 	          	</div>
 
 	          {{ Form::close() }}
@@ -137,4 +197,7 @@
 	  </div>
 
 	  </div>
+	  <script>
+	  	var items = {{ json_encode($items) }};
+	  </script>
 @stop

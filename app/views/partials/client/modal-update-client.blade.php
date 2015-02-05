@@ -57,7 +57,7 @@
                         <a data-toggle="tooltip" data-placement="top" title="A valid ABN/ACN is required when registering a new Australian domain (eg. mydomain.com.au).">
                             <i class="fa fa-question-circle"></i>
                         </a>
-                        {{ Form::text('abn', $client['custom_fields'][3]['value'], ['class' => 'form-control']) }}
+                        {{ Form::text('abn', (isset($client['custom_fields'][3]))? $client['custom_fields'][3]['value']: '', ['class' => 'form-control']) }}
                     </div>
                 </div>
             </div>
@@ -77,18 +77,8 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <div class="form-group">
-                          <label for="client">State / Territory</label>
-                          {{ Form::select('state', array(
-                                                    'New South Wales' => 'New South Wales',
-                                                    'Victoria' => 'Victoria',
-                                                    'Queensland' => 'Queensland',
-                                                    'South Australia' => 'South Australia',
-                                                    'Nothern Territory' => 'Nothern Territory',
-                                                    'Western Australia' => 'Western Australia',
-                                                    'Tasmania' => 'Tasmania'
-                                                    ), $client['billing_address']['state'], ['class' => 'form-control m-b']) }}
-                        </div>
+                        <label for="client">Post Code / ZIP</label>
+                        {{ Form::text('zip', $client['billing_address']['zip'], ['class' => 'form-control']) }}
                     </div>
                 </div>
             </div>
@@ -98,14 +88,23 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="client">Post Code / ZIP</label>
-                        {{ Form::text('zip', $client['billing_address']['zip'], ['class' => 'form-control']) }}
+                          <label for="client">State / Territory</label>
+                          {{ Form::select('state', array(
+                                                    '' => '',
+                                                    'New South Wales' => 'New South Wales',
+                                                    'Victoria' => 'Victoria',
+                                                    'Queensland' => 'Queensland',
+                                                    'South Australia' => 'South Australia',
+                                                    'Nothern Territory' => 'Nothern Territory',
+                                                    'Western Australia' => 'Western Australia',
+                                                    'Tasmania' => 'Tasmania'
+                                                    ), $client['billing_address']['state'], ['class' => 'form-control m-b']) }}
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                       <label for="client">Country</label>
-                      {{ Form::select('country', array('Australia' => 'Australia'), $client['billing_address']['country'], ['class' => 'form-control m-b']) }}
+                      {{ Form::select('country', array('' => '', 'Australia' => 'Australia'), $client['billing_address']['country'], ['class' => 'form-control m-b']) }}
                     </div>
                 </div>
             </div>

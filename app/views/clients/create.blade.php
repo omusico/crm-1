@@ -1,7 +1,7 @@
 @extends('templates.main-template')
     @section('content')
 
-	  <div class="wrapper-md" ng-controller="FormDemoCtrl">
+	  <div class="wrapper-md">
 
 	  	<div class="row">
 	    <div class="col-sm-12">
@@ -14,7 +14,7 @@
 	          
 	          <!-- row -->
 	          <div class="row">
-	          {{ Form::open(['id' => 'create-client-form', 'action' => 'ClientsController@store']) }}
+	          {{ Form::open(['id' => 'create-client-form', 'action' => 'ClientsController@store', 'class' => 'form-label-bold']) }}
 	          	
 	          	<!-- business details -->
 	          	<div class="col-sm-6">
@@ -85,10 +85,21 @@
 				        </div>
 				        <div class="col-sm-6">
 				          	<div class="form-group">
+					          	<label for="client">Post Code / ZIP</label>
+					          	{{ Form::text('zip', null, ['class' => 'form-control', 'placeholder' => 'eg. 3000']) }}
+				          	</div>
+				        </div>
+				    </div>
+				    <!-- / row -->
+
+				    <!-- row -->
+		          	<div class="row">
+		          		<div class="col-sm-6">
+		          			<div class="form-group">
 					          	<div class="form-group">
 						          <label for="client">State / Territory</label>
 						          {{ Form::select('state', array(
-						          							'' => ' - ',
+						          							'' => '',
 						          							'New South Wales' => 'New South Wales',
 						          							'Victoria' => 'Victoria',
 						          							'Queensland' => 'Queensland',
@@ -100,21 +111,10 @@
 						        </div>
 				          	</div>
 				        </div>
-				    </div>
-				    <!-- / row -->
-
-				    <!-- row -->
-		          	<div class="row">
-		          		<div class="col-sm-6">
-				          	<div class="form-group">
-					          	<label for="client">Post Code / ZIP</label>
-					          	{{ Form::text('zip', null, ['class' => 'form-control', 'placeholder' => 'eg. 3000']) }}
-				          	</div>
-				        </div>
 				        <div class="col-sm-6">
 				        	<div class="form-group">
 					          <label for="client">Country</label>
-					          {{ Form::select('country', array('Australia' => 'Australia'), null, ['class' => 'form-control m-b']) }}
+					          {{ Form::select('country', array('' => '', 'Australia' => 'Australia'), null, ['class' => 'form-control m-b']) }}
 					        </div>
 				        </div>
 				    </div>

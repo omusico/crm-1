@@ -19,7 +19,7 @@
         </tr>
         <tr>
           <td class="v-middle font-bold">Website:</td>
-          <td class="v-middle">{{ $client['website'] }}&nbsp;&nbsp;&nbsp;
+          <td class="v-middle"> {{ $client['website'] }}&nbsp;&nbsp;&nbsp;
             <a data-toggle="tooltip" data-placement="top" data-original-title="Open Website" class="external-link" target="_blank" href="{{ 'http://' . $client['website'] }}">
               <i class="fa fa-external-link"></i>
             </a>
@@ -42,15 +42,15 @@
           <td class="v-middle">{{ $client['custom_fields'][2]['value'] }}</td>
         </tr>
         <tr>
-          <td class="v-middle font-bold">ABN/ACN:</td>
-          <td class="v-middle">{{ $client['custom_fields'][3]['value'] }}</td>
+          <td class="v-middle font-bold">ABN / ACN:</td>
+          <td class="v-middle">{{ (isset($client['custom_fields'][3]))? $client['custom_fields'][3]['value']: '' }}</td>
         </tr>
         <tr>
           <td class="v-middle font-bold">Street Address:</td>
           <td class="v-middle">{{ $client['billing_address']['address'] }}</td>
         </tr>
         <tr>
-          <td class="v-middle font-bold">City/Suburb:</td>
+          <td class="v-middle font-bold">City / Suburb:</td>
           <td class="v-middle">{{ $client['billing_address']['city'] }}</td>
         </tr>
         <tr>

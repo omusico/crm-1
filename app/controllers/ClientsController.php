@@ -112,9 +112,9 @@ class ClientsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($client_id)
 	{	
-		$response = $this->zohoApi->getContact($id);
+		$response = $this->zohoApi->getContact($client_id);
 
 		if($response['message'] === 'success')
 		{
