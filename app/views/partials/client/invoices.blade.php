@@ -1,61 +1,59 @@
 <div class="wrapper-sm">
     <h3>Client Invoices & Billing</h3>
-    @if(count($clientInvoices->getCollection()) > 0)
+    
     <div class="panel-body b-b b-light">
       Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
     </div>
-    @endif
+    
     <div>
-      @if(count($clientInvoices->getCollection()) > 0)
+      
       <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="15">
         <thead>
           <tr>
               <th data-toggle="true">
-                  Invoice No.
+                  Invoice #
               </th>
               <th>
-                  Client
-              </th>
-              <th data-hide="phone,tablet" class="footable-sorted">
-                  Created By
+                  Created On
               </th>
               <th data-hide="phone,tablet">
-                  Paid On
+                  Due Date
               </th>
-              <th data-hide="phone">
+              <th data-hide="phone,tablet">
+                  Total
+              </th>
+              <th data-hide="phone,tablet">
+                  Balance
+              </th>
+              <th data-hide="phone,tablet">
                   Status
+              </th>
+              <th data-hide="phone,tablet">
+                  Actions
               </th>
           </tr>
         </thead>
-        <tbody>
-          @foreach($clientInvoices->getCollection() as $invoice)
-            <tr>
-                <td><a href="">{{ '#' . $invoice->id }}</a></td>
-                <td><a href="{{ url('clients/'.$invoice->client_id) }}">{{ DB::table('clients')->where('id', '=', $invoice->client_id)->pluck('business_name') }}</a></td>
-                <td data-value="78025368997">{{ DB::table('users')->where('id', '=', $invoice->created_by)->pluck('first_name') . ' ' . DB::table('users')->where('id', '=', $invoice->created_by)->pluck('last_name') }}</td>
-                <td>{{ $invoice->paid_on }}</td>
-                <td data-value="1"><span class="label bg-success" title="Active">Paid</span></td>
-            </tr>
-          @endforeach
+        <tbody class="invoices">
+          
         </tbody>
         <tfoot class="hide-if-no-paging">
           <tr>
-              <td colspan="5" class="text-center">
+              <!-- <td colspan="5" class="text-center">
                   <ul class="pagination"></ul>
-              </td>
+              </td> -->
           </tr>
         </tfoot>
       </table>
 
       <div class="col-lg-12 pull-right">
-        {{ $clientInvoices->links() }}
+        
       </div>
-      @else
-          <p>This client doesn't have any invoices.</p>
-      @endif
+      
+          <!-- <p>This client doesn't have any invoices.</p> -->
+      
       <div class="client-btns">
           <ul>
-              <li><a href="{{ action('InvoicesController@create') . '?c=' . $client->id }}" class="btn btn-md btn-success">Create New Invoice</a></li>
+              <li><a href="" class="btn btn-md btn-success">Create New Invoice</a></li>
           </ul>
       </div>
     </div>

@@ -79,6 +79,24 @@ function onloadAjax(url, method, selector, data)
   });
 }
 
+
+
+function noReloadAjax(url, method, async, data)
+{
+    if(typeof(data)==='undefined') data = '';
+    startHoldTight(); 
+  
+    $stuff = $.ajax({
+        url: url,
+        type: method,
+        data: data,
+        async: async
+    });
+
+    stopHoldTight();
+    return $stuff.responseText;
+}
+
 $('.no-return-form').on( "submit", function(event) {
     event.preventDefault();
 
@@ -182,8 +200,12 @@ $('.edit-item-link').on("click", function(event) {
 
 $('.resource-tab').on("click", function(event){
     event.preventDefault();
-    //startHoldTight();
-    $href = $(this).data('id');
-    alert($href);
+    $url = $(this).data('url');
+    $client_id = $(this).data('id');
+    $selector = $('tbody.invoices');
+    $method = 'get';
+    $data = 'customer_id='+$client_id;
+    onloadAjax($url, $method, $selector, $data);
+    $(this).removeClass('resource-tab');
 });
 

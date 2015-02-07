@@ -78,14 +78,15 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.line-items > .items-header {
+.line-items > .items-header,
+.line-items > .items-footer {
     height: 35px;
     background: #F9F8F8;
     border: 1px solid #ECECEC;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
-.line-items > .items-header > a {
+.line-items > .items-footer > a {
     margin-left: 15px;
 }
 .line-items > .items-header > .item-details {
@@ -127,7 +128,7 @@
 .item-remove {
     color: #F05050 !important;
 }
-.not-active > a > .item-remove {
+.not-active .item-remove {
     color: grey !important;
 }
 .item-details {

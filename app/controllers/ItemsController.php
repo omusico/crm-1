@@ -25,6 +25,15 @@ class ItemsController extends \BaseController {
 	 */
 	public function index()
 	{
+		if(Request::ajax())
+		{
+			//return intval(Input::get('itemNum'));
+			$items = $this->returnSelectValue($this->zohoApi->getAllItems(), 'item', 'name', 'description');
+			$html = $this->htmlBuilder->buildInvoiceItem(intval(Input::get('itemNum')), $items);
+			return $html;
+
+		}
+		
 		// if(Request::ajax())
 		// {
 			//$response = $this->zohoApi->getAllItems();
@@ -96,9 +105,14 @@ class ItemsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($item_id)
 	{
-		//
+		if(Request::ajax())
+		{
+			$item = $this->zohoApi->getItem($item_id)['item'];
+
+			return $item;
+		}
 	}
 
 

@@ -26,8 +26,11 @@
 			          		<!-- client -->
 				          	<div class="form-group">
 					        	<label>Client:</label> <span class="text-danger">*</span></label>
-					        	{{ Form::select('client', $clients,
-					        			$c, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
+					        	<div class="input-group m-b">
+						        	{{ Form::select('client', $clients,
+						        			$c, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
+						        	<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+						        </div>
 				          	</div>
 				          	<!-- / client -->
 
@@ -42,7 +45,9 @@
 					          				'0'  => 'Due on Receipt'
 					          				],
 					        			'15', ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'data-placeholder' => 'Select recipients...', 'required']) }}
-					          		<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+					          		<span class="input-group-addon">
+					          			<span class="glyphicon glyphicon-calendar"></span>
+					          		</span>
 					          	</div>
 					          	<p class="pull-right font-bold text-info">Due Date: <span class="due_date"></span></p>
 				          	</div>
@@ -65,20 +70,20 @@
 				    	<!-- item -->
 				    	<div class="form-group item item-1">
 				    		<span class="line-item-column item-details">
-			    				{{ Form::select('item', $items,
-					        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'required']) }}
+			    				{{ Form::select('item-1', $items,
+					        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'required', 'onchange' => 'getItemDetails(1);']) }}
 				    		</span>
 				    		<span class="line-item-column item-quantity">
-			    				{{ Form::text('quantity', '1.00', ['class' => 'form-control', 'required']) }}
+			    				{{ Form::text('quantity-1', '1.00', ['class' => 'form-control', 'required', 'disabled', 'onblur' => 'tallyItemAmount(1);']) }}
 				    		</span>
 				    		<span class="line-item-column item-rate">
-			    				{{ Form::text('rate', '0.00', ['class' => 'form-control', 'required']) }}
+			    				{{ Form::text('rate-1', '0.00', ['class' => 'form-control', 'required', 'disabled', 'onblur' => 'tallyItemAmount(1);']) }}
 				    		</span>
 				    		<span class="line-item-column item-discount">
 				    			<div class="input-group">
-			    					{{ Form::text('discount', null, ['class' => 'form-control', 'required', 'data-discount-type'=> '$']) }}
+			    					{{ Form::text('discount-1', 0, ['class' => 'form-control', 'required', 'data-discount-type'=> '$', 'disabled', 'onblur' => 'tallyItemAmount(1);']) }}
 								   	<div class="input-group-btn">
-								       	<button type="button" class="btn btn-default dropdown-toggle discount-dropdown" data-toggle="dropdown" aria-expanded="false">$ <span class="caret"></span></button>
+								       	<button type="button" class="btn btn-default dropdown-toggle discount-dropdown discount-dropdown-1" data-toggle="dropdown" disabled aria-expanded="false">$ <span class="caret"></span></button>
 								      	<ul class="dropdown-menu dropdown-menu-right discount-dropdown" role="menu">
 								       		<li><a class="discount-type">$</a></li>
 								      		<li><a class="discount-type">%</a></li>
@@ -87,58 +92,20 @@
 								</div>
 				    		</span>
 				    		<span class="line-item-column item-tax">
-			    				{{ Form::select('tax', ['0' => 'None', '10' => 'GST [10%]'],
-			    						'10', ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen','required']) }}
+			    				{{ Form::select('tax-1', ['0' => 'None', '10' => 'GST [10%]'],
+			    						'10', ['class' => 'form-control', 'required', 'disabled']) }}
 				    		</span>
-				    		<span class="line-item-column item-amount ta-right text-larger">
+				    		<span class="line-item-column item-amount amount-1 ta-right text-larger">
 			    				0.00
 				    		</span>
 				    		<span class="line-item-column not-active">
-				    			<a href class=""><i class="item-remove fa fa-remove"></i></a>
+				    			<a class="item-remove"><i class="fa fa-remove"></i></a>
 				    			</a>
 				    		</span>
 				    	</div>
 				    	<!-- / item -->
 
-				    	<!-- item -->
-				    	<div class="form-group item item-2">
-				    		<span class="line-item-column item-details">
-			    				{{ Form::select('item', $items,
-					        			null, ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen', 'required']) }}
-				    		</span>
-				    		<span class="line-item-column item-quantity">
-			    				{{ Form::text('quantity', '1.00', ['class' => 'form-control', 'required']) }}
-				    		</span>
-				    		<span class="line-item-column item-rate">
-			    				{{ Form::text('rate', '0.00', ['class' => 'form-control', 'required']) }}
-				    		</span>
-				    		<span class="line-item-column item-discount">
-				    			<div class="input-group">
-			    					{{ Form::text('discount', null, ['class' => 'form-control', 'required', 'data-discount-type'=> '$']) }}
-								   	<div class="input-group-btn">
-								       	<button type="button" class="btn btn-default dropdown-toggle discount-dropdown" data-toggle="dropdown" aria-expanded="false">$ <span class="caret"></span></button>
-								      	<ul class="dropdown-menu dropdown-menu-right discount-dropdown" role="menu">
-								       		<li><a class="discount-type">$</a></li>
-								      		<li><a class="discount-type">%</a></li>
-								       	</ul>
-								  	</div>
-								</div>
-				    		</span>
-				    		<span class="line-item-column item-tax">
-			    				{{ Form::select('tax', ['0' => 'None', '10' => 'GST [10%]'],
-			    						'10', ['class' => 'form-control chosen-selected', 'ui-jq' => 'chosen','required']) }}
-				    		</span>
-				    		<span class="line-item-column item-amount ta-right text-larger">
-			    				0.00
-				    		</span>
-				    		<span class="line-item-column">
-				    			<a href class=""><i class="item-remove fa fa-remove"></i></a>
-				    			</a>
-				    		</span>
-				    	</div>
-				    	<!-- / item -->
-
-				    	<div class="items-header">
+				    	<div class="items-footer">
 					    	<a class="text-info add-invoice-item">+ Add another item</a>
 					    </div>
 
@@ -149,17 +116,22 @@
 			    		<div class="row form-group line-items-subsection">
 
 			    			<div class="section line-item-subtotal">
-			    				<span class="col-sm-9 text-larger subtotal-label">Sub Total</span>
+			    				<span class="col-sm-9 text-larger subtotal-label">Sub Total ($)</span>
 			    				<span class="col-sm-3 text-larger ta-right subtotal-value">0.00</span>
 				    		</div>
 
-				    		<div class="section line-item-adjustment">
+				    		<div class="section line-item-tax">
+			    				<span class="col-sm-9 text-larger subtotal-label">Tax($)</span>
+			    				<span class="col-sm-3 text-larger ta-right subtotal-value">0.00</span>
+				    		</div>
+
+				    		<!-- <div class="section line-item-adjustment">
 			    				<span class="col-sm-4 text-larger adjustment-label">Adjustment</span>
 			    				<span class="col-sm-5 text-larger adjustment-amount">
 			    					{{ Form::text('adjustment', null, ['class' => 'form-control']) }}
 			    				</span>
 			    				<span class="col-sm-3 text-larger ta-right adjustment-value">0.00</span>
-				    		</div>
+				    		</div> -->
 
 				    		<div class="section line-item-total">
 			    				<span class="col-sm-9 text-larger total-label">Total ($)</span>
@@ -174,7 +146,7 @@
 
 
 				</div>
-				    <!-- / row
+				    <!-- / row -->
 
 			    	
 			    	
@@ -198,6 +170,7 @@
 
 	  </div>
 	  <script>
-	  	var items = {{ json_encode($items) }};
+	  	var items = {{ json_encode($items) }};	  		
 	  </script>
+	  	
 @stop

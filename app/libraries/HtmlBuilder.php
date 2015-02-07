@@ -38,37 +38,39 @@ class HtmlBuilder {
 
 
 	/**
-	 * Build item listing table rows.
+	 * Build client invoice table rows.
 	 *
-	 * @param array $items
+	 * @param array $invoices
 	 * @return string
 	 */
-	public function buildItemListingTableRows($items)
+	public function buildClientInvoiceTableRows($invoices)
 	{
-		// $html = '';
+		$html = '';
 
-		// if(count($items) < 1)
-		// {
-		// 	return $html .= '<p>There are no items to list.</p>';
-		// }
-		// else
-		// {			
-		// 	foreach ($items as $item) {
-		// 		$html .= '
-		// 			<tr>
-		//             	<td><a href="/items/'.$item['item_id'].'">'.$item['name'].'</a></td>
-		//             	<td><a href="/items/'.$item['item_id'].'">'.$item['description'].'</a></td>
-		//             	<td><a href="/items/'.$item['item_id'].'">$'.$item['rate'].'</a></td>';
-		//             	($item['status'] === 'active')? 
-		//             		$html .= '<td><a href="/items/'.$item['item_id'].'"><span class="label bg-success">'.ucfirst($item['status']).'</a></span></td>': 
-		//             		$html .= '<td><a href="/items/'.$item['item_id'].'"><span class="label bg-danger">'.ucfirst($item['status']).'</a></span></td>';
-		// 	        $html .= '
-		// 	        	<td><a href class="btn btn-sm btn-info edit-item-link" data-item-id="'.$item['item_id'].'" data-toggle="modal" data-target="#updateItemModal">Edit</a></td>
-		// 	       	</tr>
-		// 		';
-		// 	}
-		// 	return $html;
-		// }
+		if(count($invoices) < 1)
+		{
+			return $html .= '<p>There are no invoices to list.</p>';
+		}
+		else
+		{			
+			foreach ($invoices as $invoice) {
+				$html .= '
+					<tr>
+		            	<td><a href="{{ url("/invoices/'.$invoice['invoice_id'].'") }}">'.$invoice['invoice_number'].'</a></td>
+		                <td>'.date("d/m/Y", strtotime($invoice['created_time'])).'</td>
+		                <td>'.date("d/m/Y", strtotime($invoice['due_date'])).'</td>
+		                <td>'.$invoice['total'].'</td>
+		                <td>'.$invoice['balance'].'</td>
+		                <td>'.ucfirst($invoice['status']).'</td>
+		                <td>
+		                    <a href="{{ url("/invoices/'.$invoice['invoice_id'].'") }}" class="btn btn-sm btn-info edit-invoice-link" data-invoice-id="" data-toggle="modal" data-target="#updateinvoiceModal">Edit</a>
+		                    <a href class="btn btn-sm btn-danger edit-invoice-link" data-invoice-id="" data-toggle="modal">PDF</a>
+		                </td>
+			       	</tr>
+				';
+			}
+			return $html;
+		}
 	}
 
 

@@ -248,6 +248,41 @@ class ZohoInvoicesApi extends BaseApi {
 
 
 	/**********************************/
+	/***          Invoices			***/
+	/**********************************/
+
+	/**
+	 * Get all invoices.
+	 * 
+	 * @param array $params
+	 * @return array
+	 */
+	public function getAllInvoices($params = [])
+	{
+		$url = 	BASE_URL.'/'.INVOICES.'?'.
+				$this->getAuthParams().'&'.
+				$this->buildQueryParams($params);
+
+		return $this->sendGetRequest($url);
+	}
+
+
+	/**
+	 * Get an invoice.
+	 * 
+	 * @param array $invoice_id
+	 * @return array
+	 */
+	public function getInvoice($invoice_id)
+	{
+		$url = 	BASE_URL.'/'.INVOICES.'/'.intval($invoice_id).'?'.
+				$this->getAuthParams();
+
+		return $this->sendGetRequest($url);
+	}
+
+
+	/**********************************/
 	/***        Invoice Items		***/
 	/**********************************/
 
