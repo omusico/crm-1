@@ -47,7 +47,7 @@
                   <td>{{ date("d/m/Y", strtotime($invoice['due_date'])) }}</td>
                   <td>{{ '$' . number_format($invoice['total'], 2, '.',',') }}</td>
                   <td>{{ '$' . number_format($invoice['balance'], 2, '.',',') }}</td>
-                  <td>{{ ucfirst($invoice['status']) }}</td>
+                  <td>{{ ucwords(str_replace('_', ' ', $invoice['status'])) }}</td>
                   <td>
                     <a href class="btn btn-sm btn-info edit-invoice-link" data-invoice-id="{{ $invoice['invoice_id'] }}" data-toggle="modal" data-target="#updateinvoiceModal">Edit</a>
                     <a href class="btn btn-sm btn-danger edit-invoice-link" data-invoice-id="{{ $invoice['invoice_id'] }}" data-toggle="modal" data-target="#updateinvoiceModal">PDF</a>
