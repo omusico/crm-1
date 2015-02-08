@@ -41,23 +41,24 @@ class ClientsController extends \BaseController {
 	 */
 	public function index()
 	{
-		if(Request::ajax())
- 		{
- 			$response = $this->zohoApi->getAllContacts();
- 			if($response['message'] === 'success')
- 			{
- 				return $this->htmlBuilder->buildClientListingTableRows($response['contacts']);
- 			}
- 			else
- 			{
- 				return $response['message'];
- 			}
- 		}
+		// if(Request::ajax())
+ 	// 	{
+ 	// 		$response = $this->zohoApi->getAllContacts();
+ 	// 		if($response['message'] === 'success')
+ 	// 		{
+ 	// 			return $this->htmlBuilder->buildClientListingTableRows($response['contacts']);
+ 	// 		}
+ 	// 		else
+ 	// 		{
+ 	// 			return $response['message'];
+ 	// 		}
+ 	// 	}
 
 		return View::make('clients.index', 
 			[
 				'title' 		=> 'Clients',
-				'pageHeader' 	=> 'Clients'
+				'pageHeader' 	=> 'Clients',
+				'clients'		=> $this->zohoApi->getAllContacts()['contacts']
 			]);
 	}
 

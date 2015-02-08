@@ -33,23 +33,37 @@
           </tr>
         </thead>
         <tbody>
+          @foreach($clients as $client)
+          <tr>
+            <td><a href="{{ '/clients/' . $client['contact_id'] }}">{{ $client['contact_name'] }}</a></td>
+            <td><a href="{{ '/clients/' . $client['contact_id'] }}">{{ $client['first_name'] }} {{ $client['last_name'] }}</a></td>
+            <td><a href="{{ '/clients/' . $client['contact_id'] }}">{{ $client['email'] }}</a></td>
+            <td><a href="{{ '/clients/' . $client['contact_id'] }}">{{ $client['phone'] }}</a></td>
+            <td><a href="{{ '/clients/' . $client['contact_id'] }}">{{ DateClass::formatDate($client['created_time'], 'jS M Y') }}</a></td>
+            @if($client['status'] === 'active')
+              <td><a href="{{ '/clients/' . $client['contact_id'] }}"><span class="label bg-success">{{ ucfirst($client['status']) }}</a></span></td>
+            @else
+              <td><a href="{{ '/clients/' . $client['contact_id'] }}"><span class="label bg-danger">{{ ucfirst($client['status']) }}</a></span></td>
+            @endif
+          </tr>
+          @endforeach
         </tbody>
         <tfoot class="hide-if-no-paging">
-          <tr>
+          <!-- <tr>
               <td colspan="5" class="text-center">
                   <ul class="pagination"></ul>
               </td>
-          </tr>
+          </tr> -->
         </tfoot>
       </table>
     </div>
   </div>
 </div>
 <script>
-    window.onload = function() {
-      (function(){
-        onloadAjax('clients', 'get', 'tbody');
-      })();
-    };
+    // window.onload = function() {
+    //   (function(){
+    //     onloadAjax('clients', 'get', 'tbody');
+    //   })();
+    // };
 </script>
 @stop

@@ -58,7 +58,7 @@ $('.bootbox-confirm').click(function()
 function bootBoxAjax()
 {
 	startHoldTight();
-
+	
 	$.ajax({
 	    url: $url,
 	    type: $method,

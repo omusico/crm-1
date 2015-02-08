@@ -104,7 +104,7 @@ class InvoicesController extends \BaseController {
 	public function show($id)
 	{
 		//598110000000057003
-		dd($this->zohoApi->getAllInvoices(['customer_id' => '598110000000057003']));
+		//dd($this->zohoApi->getAllInvoices(['customer_id' => '598110000000057003']));
 		//return View::make('invoices.show');
 	}
 

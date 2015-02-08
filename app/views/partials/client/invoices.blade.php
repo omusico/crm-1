@@ -53,7 +53,7 @@
       
       <div class="client-btns">
           <ul>
-              <li><a href="" class="btn btn-md btn-success">Create New Invoice</a></li>
+              <li><a href="{{ action('InvoicesController@create') }}" class="btn btn-md btn-success">Create New Invoice</a></li>
           </ul>
       </div>
     </div>

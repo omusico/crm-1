@@ -59,8 +59,8 @@ class HtmlBuilder {
 		            	<td><a href="{{ url("/invoices/'.$invoice['invoice_id'].'") }}">'.$invoice['invoice_number'].'</a></td>
 		                <td>'.date("d/m/Y", strtotime($invoice['created_time'])).'</td>
 		                <td>'.date("d/m/Y", strtotime($invoice['due_date'])).'</td>
-		                <td>'.$invoice['total'].'</td>
-		                <td>'.$invoice['balance'].'</td>
+		                <td>'.'$' . number_format($invoice['total'], 2, '.',',').'</td>
+		                <td>'.'$' . number_format($invoice['balance'], 2, '.',',').'</td>
 		                <td>'.ucfirst($invoice['status']).'</td>
 		                <td>
 		                    <a href="{{ url("/invoices/'.$invoice['invoice_id'].'") }}" class="btn btn-sm btn-info edit-invoice-link" data-invoice-id="" data-toggle="modal" data-target="#updateinvoiceModal">Edit</a>
